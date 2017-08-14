@@ -1,0 +1,1153 @@
+\documentclass[letterpaper,12pt]{article}
+\usepackage[letterpaper, left=0.8in, right=0.8in, top=1in, bottom=1in]{geometry}
+\usepackage[titletoc]{appendix}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{enumerate}
+\usepackage{multicol}
+\usepackage{tikz}
+\usepackage{amsmath,amssymb}
+\usepackage{setspace}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[justification=centering]{caption}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{mathrsfs}
+\usepackage{calligra}
+\usepackage{float}
+\usepackage{physics}
+\usepackage{slashed}
+\usepackage{tikz-feynman}
+\usepackage{tgtermes}
+\usepackage{titlesec}
+\usepackage{changepage}
+\usepackage{tabto}
+
+\setlength{\parindent}{0.4in}
+
+\newcommand{\linia}{\rule{\linewidth}{0.5pt}}
+
+% my own titles
+\title{
+	\huge{Solution to Problems in\\Quantum Field Theory}\\
+	\vspace{0.1in}
+	\Large{by Franz Mandl \& Graham Shaw}
+}
+
+\author{Sanha Cheong}
+\def\email{\texttt{\href{mailto:sanha@stanford.edu}{sanha@stanford.edu}}}
+\def\institution{Stanford University}
+
+\date{\today}
+
+\makeatletter
+\renewcommand{\maketitle}{
+\begin{center}
+\textsc{\@title}
+\end{center}
+\vspace{2ex}
+\Large{\@author} \hfill \Large{\@date}		\\
+\large{\email}	\hfill	$ $			\\
+\large{\institution}
+\\
+\linia
+}
+\makeatother
+%%%
+
+% custom footers and headers
+\usepackage{fancyhdr,lastpage}
+\pagestyle{fancy}
+\lhead{}
+\chead{}
+\rhead{}
+\cfoot{}
+\rfoot{Page \thepage\ /\ \pageref*{LastPage}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+%
+
+% custom section/problems
+\titleformat{\section}[block]
+{\vspace{0.3in}\LARGE\bfseries\centering}
+{\thesection}{1em}{}
+
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\titleformat{\subsection}[runin]
+{\vspace{1ex}}
+{\thesubsection.}{0em}{}
+
+\renewcommand{\thesubsubsection}{(\roman{subsubsection})}
+\titleformat{\subsubsection}[runin]
+{\vspace{-1ex}}
+{\thesubsubsection}{0em}{}
+
+\newenvironment{problem}{\subsection{}\begin{adjustwidth}{0.25in}{}\vspace{-\baselineskip}}{\end{adjustwidth}}
+
+\newenvironment{subproblem}{\subsubsection{}\begin{adjustwidth}{0.4in}{}\vspace{-\baselineskip}}{\end{adjustwidth}}
+%
+
+% mathematical & typeset commands
+\setlength{\fboxsep}{0pt}
+\setlength{\fboxrule}{.1pt}
+\makeatletter
+\newcommand*\dotp{\mathpalette\bigcdot@{.5}}
+\newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+\makeatother
+\newcommand{\fig}[2]{ 
+	\begin{figure}[bth] 
+		\centering
+		\includegraphics[width = 13cm]{#1} 
+		\caption {#2} 
+\end{figure}}
+\newcommand{\der}[2]{\frac{\diff{#1}}{\diff{#2}}}
+\newcommand{\nder}[3]{\frac{\diff[#1]{#2}}{\ndiff[#1]{#3}}}
+\newcommand{\pder}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\npder}[3]{\frac{\partial^#1 #2}{\partial #3^#1}}
+\newcommand{\lagr}{\mathscr{L}}
+\newcommand{\hamil}{\mathscr{H}}
+\DeclareMathOperator{\dalem}{\Box}
+\makeatletter
+\def\diff{\@ifnextchar[{\@with}{\@without}}
+\def\@with[#1]#2{\textrm{d}^#1#2}
+\def\@without#1{\textrm{d}#1}
+\makeatother
+\newcommand{\define}{\equiv}
+\newcommand{\done}{\tag*{$\blacksquare$}}
+\newcommand{\overbar}[1]{
+	\mkern 1.5mu \overline{\mkern-1.5mu\raisebox{0pt}[\dimexpr\height+0.5mm\relax]{$#1$}\mkern-1.5mu}\mkern 1.5mu
+}
+\newcommand{\timep}[1]{\mathrm{T}\left\{#1\right\}}
+%
+
+\bibliographystyle{abbrv}
+
+%%%----------%%%----------%%%----------%%%----------%%%
+
+\begin{document}
+
+\maketitle
+
+\section{Photons and the Electromagnetic Field}
+
+\begin{problem}
+The free-radiation field inside a cubic enclosure is given by the state:
+\begin{equation*}
+\ket{c} = \exp\left(-\frac{1}{2}\abs{c}^2\right)
+\sum_{n=0}^{\infty} \frac{c^n}{\sqrt{n!}} \ket{n}
+\end{equation*}
+where $c=\abs{c}e^{i\delta}$ is any complex number and $\ket{n}$ is the state with $n$ photons with some specific wavevector $\vb{k}$ and transverse polarization $r$, omitted in the expression.
+
+(Such a state $\ket{c}$ is called \emph{a coherent state} and is extremely useful in quantum optics and other bosonic quantum field theory.)
+
+\begin{subproblem}
+	$\ket{c}$ is normalized: $\braket{c}{c}=1$.
+	\begin{align*}
+		\braket{c}{c}
+		&= \exp\left(-\abs{c}^2\right)
+		\left(\sum_{m=0}^{\infty}\bra{m}\frac{{c^*}^m}{\sqrt{m!}}\right)
+		\left(\sum_{n=0}^{\infty}\frac{c^n}{\sqrt{n!}}\ket{n}\right)	\\
+		&= e^{-\abs{c}^2}
+		\sum_{m=0}^{\infty}\sum_{n=0}^{\infty}
+		\frac{\abs{c}^2 e^{i(n-m)\delta}}{\sqrt{m!}\sqrt{n!}}\braket{m}{n}	\\
+	\intertext{At this point, we invoke the orthonormality $\braket{m}{n}=\delta_{mn}$ to obtain: }
+		&= e^{-\abs{c}^2}
+		\sum_{m=0}^{\infty}\sum_{n=0}^{\infty}
+		\frac{\abs{c}^2 e^{i(n-m)\delta}}{\sqrt{m!}\sqrt{n!}} \delta_{mn}	\\
+		&= e^{-\abs{c}^2} \sum_{n=0}^{\infty} \frac{\abs{c}^2}{n!}	\\
+		&= e^{-\abs{c}^2} e^{\abs{c}^2}	\\
+		&=1		\done
+	\end{align*}
+\end{subproblem}
+
+\begin{subproblem}
+	$\ket{c}$ is an eigenstate of $a_r(\vb{k})$ with the complex eigenvalue $c$: $a_r(\vb{k}) \ket{c} = c\ket{c}$.
+	\begin{align*}
+		a_r(\vb{k}) \ket{c} &=
+		\exp\left(-\frac{1}{2}\abs{c}^2\right)
+		\sum_{n=0}^{\infty} \frac{c^n}{\sqrt{n!}} a_r(\vb{k})\ket{n}	\\
+		&= \exp\left(-\frac{1}{2}\abs{c}^2\right)
+		\left[0 + \sum_{n=1}^{\infty} \frac{c^n}{\sqrt{n!}} \sqrt{n}\ket{n-1}\right]	\\
+	\intertext{If we redefine the index by $m=n-1$, we get:}
+		&= \exp\left(-\frac{1}{2}\abs{c}^2\right)
+		\sum_{m=0}^{\infty} \frac{c^{m+1}}{\sqrt{m!}} \ket{m}	\\
+		&= c\ket{c}		\done
+	\end{align*}
+\end{subproblem}
+
+\begin{subproblem}
+	The expected number of photons in the enclosure $\overbar{N}\define\ev{N}{c}$ is equal to $\abs{c}^2$.
+	\begin{align*}
+		\overbar{N} &\define \ev{N}{c}		\\
+		&= \ev{a^\dagger a}{c}	\\
+		&= \abs\Big{a\ket{c}}^2	\\
+		\intertext{Since $a\ket{c}=c\ket{c}$ as shown in (ii), we get:}
+		&= \abs\Big{c\ket{c}}^2	\\
+		&= \abs{c}^2		\done
+	\end{align*}
+\end{subproblem}
+
+\begin{subproblem}
+	The RMS fluctuation of the photon number is given by:
+	\begin{equation*}
+		\left(\Delta N\right)^2 \define \ev{N^2}{c} - \overbar{N}^2 = \abs{c}^2
+	\end{equation*}
+	Recall that $\left[a_r(\vb{k}),a^\dagger_s(\vb{k}')\right]=\delta_{rs}\delta_{\vb{k}\vb{k}'}$. Hence, in our case with some specific wavevector $\vb{k}$ and polarization $r$, $\left[a, a^\dagger\right]=1$. Then,
+	\begin{align*}
+		N^2 &= \left(a^\dagger a\right) \left(a^\dagger a\right)	\\
+		&= a^\dagger (aa^\dagger) a	\\
+		&= a^\dagger (N + 1) a	\\
+		&= a^\dagger N a + N
+	\end{align*}
+	Then, the RMS fluctuation becomes:
+	\begin{align*}
+		\left(\Delta N\right)^2 &\define \ev{N^2}{c} - \overbar{N}^2	\\
+		&= \ev{a^\dagger N a  + N}{c} - \overbar{N}^2	\\
+		&= \ev{a^\dagger N a}{c} + \overbar{N} - \overbar{N}^2	\\
+		&= \abs{c}^2 \ev{N}{c} + \overbar{N} - \overbar{N}^2	\\
+		&= \abs{c}^4 + \abs{c}^2 - \abs{c}^4	\\
+		&= \abs{c}^2		\done
+	\end{align*}
+\end{subproblem}
+
+\begin{subproblem}
+	The expected value of the electric field $\vb{E}$ is given by:
+	\begin{equation*}
+		\overbar{\vb{E}} \define \ev{\vb{E}}{c} = -\vb*{\varepsilon}_r(\vb{k}) 2\sqrt{\frac{\hbar \omega_{\vb{k}}}{2V}} \abs{c} \sin(\vb{k} \dotp \vb{x} - \omega_{\vb{k}} t + \delta)
+	\end{equation*}
+	where $V$ is the volume of the cubic enclosure.
+	
+	Since we are only dealing with free radiation (i.e. no charge distribution, $\phi=0$), we can let the longitudinal field $\vb{E}_\text{L}$ be \emph{zero} in the Coulomb gauge. Then, the remaining electric field is purely transverse, which is given by:
+	\begin{align*}
+		\vb{E}\left(\vb{x},t\right)
+		&= -\frac{1}{c} \pder{\vb{A}\left(\vb{x},t\right)}{t}	\\
+		&= i \vb*{\varepsilon}_r(\vb{k}) \sqrt{\frac{\hbar \omega_{\vb{k}}}{2V}}
+		\left[a_r(\vb{k})e^{i\left(\vb{k}\dotp\vb{x} - \omega_{\vb{k}}t\right)} - a^\dagger_r(\vb{k})e^{-i\left(\vb{k}\dotp\vb{x} - \omega_{\vb{k}}t\right)}\right]
+	\end{align*}
+	
+	At this point, we define the phase of the electric field: $\theta \define \vb{k}\dotp\vb{x} - \omega_{\vb{k}}t$.
+	
+	The mean electric field $\overbar{\vb{E}}$ is then:
+	\begin{align*}
+		\overbar{E} &\define \ev{\vb{E}}{c}	\\
+		&= i\vb*{\varepsilon}_r(\vb{k}) \sqrt{\frac{\hbar\omega_{\vb{k}}}{2V}}
+		\left[\ev{a_r(\vb{k})}{c}e^{i\theta} - \ev{a^\dagger_r(\vb{k})}{c}e^{-i\theta}\right]	\\
+	\intertext{From (ii), $a_r(\vb{k})\ket{c} = c\ket{c}$ and, similarly, $\bra{c}a^\dagger_r(\vb{k}) = \bra{c}c^*$. Also, recall that $c=\abs{c}e^{i\delta}$. Hence, we get:}
+		&= i\vb*{\varepsilon}_r(\vb{k}) \sqrt{\frac{\hbar\omega_{\vb{k}}}{2V}}
+		\left[ce^{i\theta} - c^*e^{-i\theta}\right]	\\
+		&= i\vb*{\varepsilon}_r(\vb{k}) \sqrt{\frac{\hbar\omega_{\vb{k}}}{2V}}
+		\left[2i\Im{ce^{i\theta}}\right]	\\
+		&= -\vb*{\varepsilon}_r(\vb{k}) 2\sqrt{\frac{\hbar \omega_{\vb{k}}}{2V}} \abs{c} \sin(\vb{k} \dotp \vb{x} - \omega_{\vb{k}} t + \delta)		\done
+	\end{align*}
+\end{subproblem}
+
+\begin{subproblem}
+	The RMS fluctuation $\Delta E$ in the electric field is given by:
+	\begin{equation*}
+		\left(\Delta E\right)^2 \define \ev{E^2}{c} - \ev{E}{c}^2 = \frac{\hbar\omega_{\vb{k}}}{2V}
+	\end{equation*}
+	Note that the polarization vector $\vb*{\varepsilon}_r$ has been omitted and the electric field here is treated as a scalar quantity, since we are dealing with a definite pure polarization.
+	
+	First, we compute the operator $E^2$:
+	\begin{align*}
+		E^2 &\define EE	\\
+		&= \left[i\sqrt{\frac{\hbar\omega_{\vb{k}}}{2V}}
+		\left(ae^{i\theta} - a^\dagger e^{-i\theta}\right)\right]^2	\\
+		&= -\frac{\hbar\omega_{\vb{k}}}{2V}\left[a^2 e^{i2\theta} + a^{\dagger2}e^{-i2\theta} - aa^\dagger - a^\dagger a\right]	\\
+		&= -\frac{\hbar\omega_{\vb{k}}}{2V}\left[a^2 e^{i2\theta} + a^{\dagger2}e^{-i2\theta} - 2a^\dagger a - 1\right]
+	\end{align*}
+	
+	Then, the RMS fluctuation $\Delta E$ is:
+	\begin{align*}
+		\left(\Delta E\right)^2 &\define
+		\ev{E^2}{c} - \ev{E}{c}^2	\\
+		&= -\frac{\hbar\omega_{\vb{k}}}{2V}\left[e^{i2\theta}\ev{a^2}{c} + e^{-i2\theta}\ev{a^{\dagger2}}{c} - 2\ev{a^\dagger a}{c} - \braket{c}\right]	\\
+		&\qquad - 4\frac{\hbar\omega_{\vb{k}}}{2V}\abs{c}^2\sin^2\left(\theta + \delta\right)	\\
+		&= -\frac{\hbar\omega_{\vb{k}}}{2V}\left[c^2e^{i2\theta} + c^{*2}e^{-i2\theta} - 2\abs{c}^2 - 1 + 4\abs{c}^2\sin^2\left(\theta+\delta\right) \right]	\\
+		&= \frac{\hbar\omega_{\vb{k}}}{2V}
+		\left[1 - c^2e^{i2\theta} - \left(c^2e^{i2\theta}\right)^* + 2\abs{c}^2 - 4\abs{c}^2\sin^2\left(\theta+\delta\right)\right]	\\
+		&= \frac{\hbar\omega_{\vb{k}}}{2V}
+		\left[1 - \abs{c}^2\left(2\Re{e^{i2(\theta+\delta)}} - 2 + 4\sin^2(\theta+\delta)\right) \right]	\\
+		&= \frac{\hbar\omega_{\vb{k}}}{2V}
+		\left[1 - \abs{c}^2\left(2\cos^2(\theta+\delta)-2\sin^2(\theta+\delta) - 2 + 4\sin^2(\theta+\delta)\right)\right]	\\
+		&= \frac{\hbar\omega_{\vb{k}}}{2V}		\done
+	\end{align*}
+\end{subproblem}
+
+From the above calculations, we observe that, in the coherent state $\ket{c}$ which is a superposition of states with all possible number of photons (we sum from $n=0$ to $n=\infty$), the relative fluctuations in both the mean number of photons and the mean electric field strength vanish:
+\begin{gather*}
+	\frac{\Delta N}{\overbar{N}} = \abs{c}^{-1} = \overbar{N}^{-1/2}	\\[0.5ex]
+	\frac{\Delta E}{\overbar{E}} \propto \abs{c}^{-1} = \overbar{N}^{-1/2}
+\end{gather*}
+as $\overbar{N} \rightarrow \infty$. Hence, in this limit, the state $\ket{c}$ behaves like a classical electromagnetic field. In other words, classical beam of electromagnetic radiation is retained from quantum electrodynamics by considering a \emph{coherent state} in the limit of infinite mean number of photons.
+\end{problem}
+
+
+
+\begin{problem}
+The Lagrangian of a point particle of mass $m$ and electric charge $q$ moving in an electromagnetic potential $(\phi,\vb{A})$ is given by:
+\begin{equation*}
+	L\left(\vb{x},\dot{\vb{x}}\right) = \frac{1}{2}m\dot{\vb{x}}^2 + \frac{q}{c}\vb{A}\dotp\dot{\vb{x}} - q\phi
+\end{equation*}
+
+\begin{subproblem}
+	The momentum $\vb{p}$ conjugate to $\vb{x}$ is:
+	\begin{equation*}
+		\vb{p} \define \pder{L}{\dot{\vb{x}}} = m\dot{\vb{x}} + \frac{q}{c}\vb{A}
+	\end{equation*}
+	
+	The Euler-Lagrange equations become:
+	\begin{align*}
+		\der{}{t}\left(\pder{L}{\dot{\vb{x}}}\right) - \pder{L}{\vb{x}} &= \der{}{t}\left(m\dot{x_i} + \frac{q}{c}A_i\right) - \frac{q}{c}\pder{(A_j\dot{x}_j)}{x_i} + q\pder{\phi}{x_i}	\\
+		&= m\der{}{t}\dot{x_i} + \frac{q}{c}\left[\pder{A_i}{t} + \dot{x}_j\pder{A_i}{x_j}\right] - \frac{q}{c}\pder{A_j}{x_i}\dot{x_j} + q\pder{\phi}{x_i}	\\
+		&= m\der{}{t}\dot{x_i} + q\left(-\frac{1}{c}\pder{A_i}{t} - \pder{\phi}{x_i}\right) + \frac{q}{c}\dot{x}_j\left(\pder{A_i}{x_j} - \pder{A_j}{x_i}\right)	\\
+		&= m\der{}{t}\dot{\vb{x}} + q\left(-\frac{1}{c}\pder{\vb{A}}{t}-\pder{\phi}{\vb{x}}\right) + \frac{q}{c}\dot{\vb{x}}\dotp\left(\curl\vb{A}\right)
+	\end{align*}
+	where we have used the index notation; repeated indices imply summation.
+	
+	The electromagnetic fields $\vb{E}, \vb{B}$ are described in terms of the potentials as:
+	\begin{equation*}
+		\vb{E} = -\pder{\phi}{\vb{x}} - \frac{1}{c}\pder{\vb{A}}{t} \,, \,
+		\vb{B} = \curl \vb{A}
+	\end{equation*}
+	and therefore the Euler-Lagrange equations give:
+	\begin{equation*}
+		m\der{}{t}\dot{\vb{x}} = q\left(\vb{E} + \frac{1}{c}\dot{\vb{x}}\dotp\vb{B}\right)		\done
+	\end{equation*}
+\end{subproblem}
+
+\begin{subproblem}
+	Given a Lagrangian $L\left(\vb{x},\dot{\vb{x}}\right)$, the Hamiltonian $H(\vb{x},\vb{p})$ is:
+	\begin{equation*}
+		H(\vb{x},\vb{p}) = \dot{\vb{x}}\dotp\vb{p} - L
+	\end{equation*}
+	
+	Hence, in our case, the Hamiltonian becomes:
+	\begin{align*}
+		H(\vb{x},\vb{p}) &= \dot{\vb{x}}\dotp\left(m\dot{\vb{x}}+\frac{q}{c}\vb{A}\right) - \left(\frac{1}{2}m\dot{\vb{x}}^2 + \frac{q}{c}\vb{A}\dotp\dot{\vb{x}} - q\phi\right)	\\
+		&= \frac{1}{2}m\dot{\vb{x}}^2 + q\phi	\\
+	\intertext{and since $m\dot{\vb{x}} = \vb{p} - \frac{q}{c}\vb{A}$, we get the desired Hamiltonian:}
+		&= \frac{1}{2m}\left(\vb{p} - \frac{q}{c}\vb{A}\right)^2 + q\phi		\done
+	\end{align*}
+	
+	With this Hamiltonian, the Hamiltonian equations of motion give:
+	\begin{align*}
+		\dot{\vb{x}} &= \pder{H}{\vb{p}}	\\
+		&= \frac{1}{m}\left(\vb{p} - \frac{q}{c}\vb{A}\right)
+	\end{align*}
+	from which we retain:
+	\begin{equation*}
+		\vb{p} = m\dot{\vb{x}} + \frac{q}{c}\vb{A}
+	\end{equation*}
+	and also
+	\begin{align*}
+		\dot{\vb{p}} &= m\der{}{t}\dot{x_i} + \frac{q}{c}\left(\pder{A_i}{t} + \dot{x_j}\pder{A_i}{x_j}\right)	\\
+		&= -\pder{H}{\vb{x}}	\\
+		&= -\frac{1}{m}\left(p_j-\frac{q}{c}A_j\right)
+		\pder{}{x_i}\left(-\frac{q}{c}A_j\right) 
+		- q\pder{\phi}{x_i}		\\
+		&= +\frac{q}{c}\dot{x}_j\pder{A_j}{x_i} - q\pder{\phi}{x_i}
+	\end{align*}
+	from which we retain:
+	\begin{equation*}
+		m\der{}{t}\dot{\vb{x}} = q\left(\vb{E}+\frac{1}{c}\dot{\vb{x}}\dotp\vb{B}\right)	\done
+	\end{equation*}
+\end{subproblem}
+\end{problem}
+
+
+
+\begin{problem}
+Consider \textit{a Thomson Scattering} process such that an unpolarized photon with a wavevector $\vb{k}$ \textit{collides} with an electron, and a new photon with a wavevector $\vb{k}'$ linearly polarized in a specific direction is emitted at an angle $\theta$ relative to the incoming photon ($\hat{\vb{k}}\dotp\hat{\vb{k}}'=\cos\theta$).
+
+The differential cross-section for a Thomson scattering of photons with definite initial and final polarizations $\alpha, \beta$ is given by:
+\begin{equation*}
+	\sigma_{\alpha\rightarrow\beta} \, \diff{\vb*{\Omega}}
+	= r_0^2 \left[\vb*{\varepsilon}_\alpha\dotp\vb*{\varepsilon}'_\beta\right]^2 \, \diff{\vb*{\Omega}}
+\end{equation*}
+where $\vb*{\varepsilon}_\alpha, \vb*{\varepsilon}'_\beta$ are the initial and final polarization vectors respectively, and $r_0 \define \frac{e^2}{4\pi mc^2}$ is the classical electron radius.
+
+To apply this result to our case, we average over the initial polarization $\alpha$ and fix a definite final polarization, say $\beta=1$. That is,
+\begin{align*}
+	\sigma_{\text{unp.}\rightarrow 1} \, \diff{\vb*{\Omega}}
+	&= \frac{1}{2}\sum_{\alpha=1,2} \sigma_{\alpha\rightarrow 1} \, \diff{\vb*{\Omega}}
+\end{align*}
+
+Since $\vb*{\varepsilon}_1, \vb*{\varepsilon}_2$, and $\hat{\vb{k}}$ form an orthonormal coordinate system,
+\begin{equation*}
+	\sum_{\alpha=1,2} \left(\vb*{\varepsilon}_\alpha \dotp \vb*{\varepsilon}'_\beta\right)^2
+	= 1 - \left(\hat{\vb{k}} \dotp \vb*{\varepsilon}'_\beta\right)^2
+\end{equation*}
+Similarly, $\vb*{\varepsilon}'_1, \vb*{\varepsilon}'_2$, and $\hat{\vb{k}}'$ also form an orthonormal coordinate system. In this coordinate system, we can write:
+\begin{equation*}
+	\hat{\vb{k}} = \left(\sin\theta\cos\phi, \sin\theta\sin\phi, \cos\theta\right)
+\end{equation*}
+
+Therefore, we obtain:
+\begin{align*}
+	\sigma_{\text{unp.}\rightarrow 1} \, \diff{\vb*{\Omega}}
+	&= \frac{1}{2}\sum_{\alpha=1,2} r_0^2 \left[\vb*{\varepsilon}_\alpha \dotp \vb*{\varepsilon}'_1\right]^2  \, \diff{\vb*{\Omega}}	\\
+	&= \frac{1}{2}r_0^2\left(1 - \sin^2\theta\cos^2\phi\right) \, \diff{\vb*{\Omega}}
+\end{align*}
+
+If we consider both of the two perpendicular final polarizations, we obtain the unpolarized differential cross-section:
+\begin{align*}
+	\sigma_{\text{unp.}} \, \diff{\vb*{\Omega}} &=
+	\left(\sigma_{\text{unp.}\rightarrow 1} + \sigma_{\text{unp.}\rightarrow 2}\right) \, \diff{\vb*{\Omega}}	\\
+	&= \frac{1}{2}r_0^2 \left(2-\sin^2\theta\cos^2\phi-\sin^2\theta\sin^2\phi\right) \, \diff{\vb*{\Omega}}	\\
+	&= \frac{1}{2}r_0^2\left(1+\cos^2\theta\right) \, \diff{\vb*{\Omega}}		\done
+\end{align*}
+which is identical Eq.~(1.69a).
+
+Now, consider the case when the scattering angle $\theta = 90^\circ$. Since the choice of the final state polarization vectors $\vb*{\varepsilon}'_1, \vb*{\varepsilon}'_2$ are arbitrary within a plane perpendicular to $\hat{\vb*{k}}'$, we choose them such that:
+\begin{equation*}
+	\vb*{\varepsilon}'_1 = \frac{\hat{\vb{k}}\cross\hat{\vb{k}}'}{\abs{\hat{\vb{k}}\cross\hat{\vb{k}}'}}
+\end{equation*}
+and naturally $\vb*{\varepsilon}'_2 = \hat{\vb{k}}' \cross \vb*{\varepsilon}'_1$ for an orthonormal basis. By construction, $\hat{\vb{k}} = \left(\cos\phi, \sin\phi, 0\right)$ is perpendicular to $\vb*{\varepsilon}'_1$ and therefore $\phi=\pi/2$. Then,
+\begin{align*}
+	\sigma_{\alpha\rightarrow 2} = 0		\done
+\end{align*}
+which implies that the final state polarization must be 100\% in the $\vb*{\varepsilon}'_1$ direction, which is the direction normal to the plane of scattering.
+
+\end{problem}
+
+
+
+\section{Lagrangian Field Theory}
+
+\begin{problem}
+Show the the transformation
+\begin{equation*}
+	\lagr'\left(\phi_r, \phi_{r,\alpha}\right) = \lagr\left(\phi_r,\phi_{r,\alpha}\right) + \partial_\alpha \Lambda^\alpha(x)
+\end{equation*}
+where $\Lambda^\alpha(x), \alpha=0, ... \,, 3$ are arbitrary functions of the fields $\phi_r(x)$ does not alter the equations of motions.
+
+First, since $\Lambda^\alpha$ are functions of $\phi_r(x)$ only, we have:
+\begin{equation*}
+	\pder{\Lambda^\alpha}{x^\alpha}
+	= \pder{\phi_r}{x^\alpha}
+	\pder{\Lambda^\alpha}{\phi_r}
+	= \phi_{r,\alpha} \pder{\Lambda^\alpha}{\phi_r}
+\end{equation*}
+
+Then, the Euler-Lagrange equations with the new Lagrangian density $\lagr'$ become:
+\begin{align*}
+	\pder{}{x^\alpha}\left(\pder{\lagr'}{\phi_{r,\alpha}}\right) - \pder{\lagr'}{\phi_r}
+	&= \pder{}{x^\alpha}\left(\pder{\lagr}{\phi_{r,\alpha}} + \pder{}{\phi_{r,\alpha}}\left(\phi_{s,\alpha}\pder{\Lambda^\alpha}{\phi_s}\right)\right)	\\
+	&\qquad - \pder{}{\phi_r}\left(\lagr + \phi_{s,\alpha}\pder{\Lambda^\alpha}{\phi_s}\right)	\\
+	&= \pder{}{x^\alpha}\left(\pder{\lagr}{\phi_{r,\alpha}} + \delta_{rs}\pder{\Lambda^\alpha}{\phi_s}\right)	 - \pder{\lagr}{\phi_r} - \phi_{s,\alpha}\frac{\partial^2 \Lambda^\alpha}{\partial\phi_r \partial\phi_s}	\\
+	&= \pder{}{x^\alpha}\left(\pder{\lagr}{\phi_{r,\alpha}}\right) -\pder{\lagr}{\phi_r} 	\\
+	&\qquad + \pder{}{x^\alpha}\left(\pder{\Lambda^\alpha}{\phi_r}\right) - \phi_{s,\alpha}\frac{\partial^2 \Lambda^\alpha}{\partial\phi_r \partial\phi_s}	\\
+	&= \pder{}{x^\alpha}\left(\pder{\lagr}{\phi_{r,\alpha}}\right) -\pder{\lagr}{\phi_r}	\\
+	&\qquad + \pder{\phi_s}{x^\alpha}\frac{\partial^2 \Lambda^\alpha}{\partial\phi_s \partial\phi_r} - \phi_{s,\alpha}\frac{\partial^2 \Lambda^\alpha}{\partial\phi_r \partial\phi_s}	\\
+	&= \pder{}{x^\alpha}\left(\pder{\lagr}{\phi_{r,\alpha}}\right) -\pder{\lagr}{\phi_r}	\\
+	&= 0		\done
+\end{align*}
+\end{problem}
+
+
+
+\begin{problem}
+The real Klein-Gordon field is described by the Hamiltonian density:
+\begin{equation*}
+	\hamil(x) = \frac{1}{2}\left(c^2\pi^2(x) + \left(\grad{\phi}\right)^2 + \mu^2\phi^2\right)
+\end{equation*}
+and the Hamiltonian of the field is:
+\begin{equation*}
+H \define \int \diff[3]{\vb{x}} \, \hamil(x)
+\end{equation*}
+
+The commutation relations of the fields are:
+\begin{gather*}
+	\left[\phi(\vb{x},t), \pi(\vb{x}',t)\right] = i\hbar\delta\left(\vb{x}-\vb{x}'\right)	\,,\\
+	\left[\phi(\vb{x},t), \phi(\vb{x}',t)\right]
+	= \left[\pi(\vb{x},t), \pi(\vb{x}',t)\right] = 0
+\end{gather*}
+
+Before computing the commutation relations involving the Hamiltonian $H$, let us first compute some simpler commutators.
+\begin{align*}
+	\left[\pi^2(\vb{x}',t), \phi(\vb{x},t)\right]
+	&= \pi(\vb{x}',t)\pi(\vb{x}',t)\phi(\vb{x},t) 
+	- \phi(\vb{x},t)\pi(\vb{x}',t)\pi(\vb{x}',t)	\\
+	&= \pi(\vb{x}',t)\pi(\vb{x}',t)\phi(\vb{x},t)	\\
+	&\qquad - \Big(\pi(\vb{x}',t)\phi(\vb{x},t) + \left[\phi(\vb{x},t), \pi(\vb{x}',t)\right]\Big)\pi(\vb{x}',t)	\\
+	&= \pi(\vb{x}',t)\left[\pi(\vb{x}',t), \phi(\vb{x},t)\right]
+	- \left[\phi(\vb{x},t), \pi(\vb{x}',t)\right]\pi(\vb{x}',t)	\\
+	&= -2i\hbar \delta(\vb{x}-\vb{x}')\pi(\vb{x}',t)
+\end{align*}
+and
+\begin{align*}
+	\left[\phi^2(\vb{x'},t), \pi(\vb{x},t)\right]
+	&= \phi(\vb{x}',t)\phi(\vb{x}',t)\pi(\vb{x},t)
+	- \pi(\vb{x},t)\phi(\vb{x}',t)\phi(\vb{x}',t)	\\
+	&= \phi(\vb{x}',t)\phi(\vb{x}',t)\pi(\vb{x},t)	\\
+	&\qquad - \Big(\phi(\vb{x}',t)\pi(\vb{x},t) + \left[\pi(\vb{x},t), \phi(\vb{x}',t)\right]\Big)\phi(\vb{x}',t)	\\
+	&= \phi(\vb{x}',t)\left[\phi(\vb{x}',t), \pi(\vb{x},t)\right] - \left[\pi(\vb{x},t), \phi(\vb{x}',t)\right]\phi(\vb{x}',t)	\\
+	&= 2i\hbar \delta(\vb{x}'-\vb{x})\phi(\vb{x}',t)
+\end{align*}
+
+Also, define $\grad' \define \left(\pder{}{x'}, \pder{}{y'}, \pder{}{z'}\right)$. (This is to emphasize that the partial derivatives are taken with respect to $\vb{x}'$, and $\grad'$ therefore does not act on functions of $\vb{x}$, e.g. $\grad{'\phi(\vb{x},t)}=0$.) Then, we have:
+\begin{equation*}
+	\left[\left(\grad'{\phi(\vb{x}',t)}\right)^2, \phi(\vb{x},t)\right] = 0
+\end{equation*}
+and
+\begin{align*}
+	\left[\left(\grad'{\phi(\vb{x}',t)}\right)^2, \pi(\vb{x},t)\right] &=
+	\Big(\grad'{\phi(\vb{x}',t)}\dotp\grad'{\phi(\vb{x}',t)}\Big)\pi(\vb{x},t)	\\
+	&\qquad - \pi(\vb{x},t)\Big(\grad'{\phi(\vb{x}',t)}\dotp\grad'{\phi(\vb{x}',t)}\Big)	\\
+	&= \grad'{\phi(\vb{x}',t)}\dotp\Big(\grad'{\phi(\vb{x}',t)\pi(\vb{x},t)}\Big)	\\
+	&\qquad - \grad'{\Big(\pi(\vb{x},t)\phi(\vb{x}',t)\Big)} \dotp \grad'{\phi(\vb{x}',t)}	\\
+	&= \grad'{\phi(\vb{x}',t)} \dotp \Big(\pi(\vb{x},t)\grad'{\phi(\vb{x}',t)} + \grad'{[\phi(\vb{x}',t), \pi(\vb{x},t)]}\Big)	\\
+	&\qquad - \Big(\grad'{\phi(\vb{x}',t)}\pi(\vb{x},t) - \grad'{[\phi(\vb{x}',t),\pi(\vb{x},t)]}\Big) \dotp \grad'{\phi(\vb{x}',t)}	\\
+	&= \grad'{\phi(\vb{x}',t)} \dotp i\hbar\grad'{\delta(\vb{x'}-\vb{x})} + i\hbar\grad{\delta(\vb{x}-\vb{x}')} \dotp \grad'{\phi(\vb{x}',t)}	\\
+	&= 2i\hbar \grad'{\delta(\vb{x}-\vb{x}')} \dotp \grad'{\phi(\vb{x}',t)}
+\end{align*}
+
+Now, we simply combine the above results to compute the commutator relations with the Hamiltonian:
+\begin{align*}
+	\left[H, \phi(x)\right] &= \left(\int \diff[3]{\vb{x}'}\,\hamil(\vb{x}',t)\right)\phi(\vb{x},t) - \phi(\vb{x},t)\left(\int \diff[3]{\vb{x}'}\,\hamil(\vb{x}',t)\right)	\\
+	&= \int \diff[3]{\vb{x}'} \,
+	\frac{1}{2}\Big(c^2\pi^2(\vb{x}',t) + (\grad'{\phi}(\vb{x}',t))^2 + \mu^2\phi^2(\vb{x}',t)\Big)\phi(\vb{x},t)	\\
+	&\qquad - \int \diff[3]{\vb{x}'} \,
+	\phi(\vb{x},t)\frac{1}{2}\Big(c^2\pi^2(\vb{x}',t) + (\grad'{\phi}(\vb{x}',t))^2 + \mu^2\phi^2(\vb{x}',t)\Big)	\\
+	&= \int \diff[3]{\vb{x}'}\,
+	\frac{1}{2}c^2\left[\pi^2(\vb{x}',t), \phi(\vb{x},t)\right]	\\
+	&= \int \diff[3]{\vb{x}'}\,
+	\frac{1}{2}c^2 \left(-2i\hbar\delta(\vb{x}-\vb{x}')\pi(\vb{x}',t)\right)
+	\\
+	&= -i\hbar c^2 \pi(x)		
+\end{align*}
+and
+\begin{align*}
+	[H, \pi(x)]
+	&= \int \diff[3]{\vb{x}'} \,
+	\frac{1}{2}\Big(\left[\left(\grad'{\phi(\vb{x}',t)}\right)^2,\pi(\vb{x},t)\right] + \mu^2\left[\phi^2(\vb{x}',t), \pi(\vb{x},t)\right]\Big)	\\
+	&= \int \diff[3]{\vb{x}'} \,
+	\frac{1}{2}\Big(2i\hbar\grad'{\delta(\vb{x}-\vb{x}')}\dotp\grad'{\phi(\vb{x}',t)} + 2i\hbar\mu^2\delta(\vb{x}'-\vb{x})\phi(\vb{x}',t)\Big)	\\
+	&= i\hbar(\mu^2 - \laplacian)\phi(x)		\done
+\end{align*}
+\end{problem}
+
+\pagebreak
+
+\begin{problem}
+Consider the Lagrangian density given by:
+\begin{equation*}
+	\lagr = -\frac{1}{2}\big[\partial_\alpha\phi_\beta(x)\big]\big[\partial^\alpha\phi^\beta(x)\big] +
+	\frac{1}{2}\big[\partial_\alpha\phi^\alpha(x)\big]\big[\partial_\beta\phi^\beta(x)\big] +
+	\frac{\mu^2}{2}\phi_\alpha(x)\phi^\alpha(x)
+\end{equation*}
+where $\phi^\alpha(x)$ is a real vector field.
+
+The corresponding Euler-Lagrange equations are:
+\begin{align*}
+	\pder{}{x^\beta}\left(\pder{\lagr}{\phi^\alpha_{\;,\beta}}\right) - \pder{\lagr}{\phi^\alpha}
+	&= \pder{}{x^\beta}\Big(-\phi_\alpha^{\;,\beta} + \delta^\beta_\alpha \partial_\gamma\phi^\gamma\Big) - \mu^2\phi_\alpha	\\
+	&= -\partial_\beta \partial^\beta \phi_\alpha + \partial_\alpha \partial_\gamma \phi^\gamma - \mu^2\phi_\alpha	\\
+	&= -\dalem\phi_\alpha + \partial_\alpha\partial_\beta \phi^\beta - \mu^2\phi_\alpha	\\
+	&= 0
+\end{align*}
+Rewriting $\phi_\alpha = g_{\alpha\beta} \phi^\beta$ and rearranging, we get:
+\begin{equation*}
+	\left[g_{\alpha\beta}\left(\dalem +\mu^2\right) - \partial_\alpha\partial_\beta\right]\phi^\beta(x) = 0		\done
+\end{equation*}
+
+Now, if we take apply an additional derivative $\partial^\alpha$ to the field equations, we get:
+\begin{align*}
+	\partial^\alpha\left[g_{\alpha\beta}\left(\dalem+\mu^2\right) - \partial_\alpha\partial_\beta\right]\phi^\beta(x)
+	&= \partial_\beta \dalem \phi^\beta + \mu^2 \partial_\beta\phi^\beta - \dalem \partial_\beta \phi^\beta	\\
+	&= \mu^2 \partial_\beta \phi^\beta	\\
+	&= 0
+\end{align*}
+For non-zero $\mu$ (i.e. the fields are \emph{massive}), this implies \emph{the Lorenz Gauge} condition:
+\begin{equation*}
+	\partial_\alpha \phi^\alpha (x) = 0			\done
+\end{equation*}
+\end{problem}
+
+
+
+\begin{problem}
+The 3-momentum operator of the fields is defined as:
+\begin{equation*}
+	P^j \define \int \diff[3]{\vb{x}} \, \pi_r(x) \pder{\phi_r(x)}{x_j}
+\end{equation*}
+
+This operator satisfies the following commutation relations:
+\begin{align*}
+	\left[P^j, \phi_r(x)\right] &\define P^j\phi_r(x) - \phi_r(x)P^j	\\
+	&= \int \diff[3]{\vb{x}'} \, \pi_r(\vb{x}',t)\pder{\phi_r(\vb{x}',t)}{x'_j}\phi_r(\vb{x},t) - \phi_r(\vb{x,t})\pi_r(\vb{x}',t)\pder{\phi_r(\vb{x}',t)}{x'_j}		\\
+\intertext{because the derivatives are with respect to $\vb{x}'$ and does not affect $\phi_r(\vb{x},t)$,}
+	&= \int \diff[3]{\vb{x}'} \, \left[\pi_r(\vb{x}',t), \phi_r(\vb{x},t)\right]\pder{\phi_r(\vb{x}',t)}{x'_j}	\\
+	&= -\int \diff[3]{\vb{x}'} \, i\hbar\delta\left(\vb{x}-\vb{x}'\right)\pder{\phi_r(\vb{x}',t)}{x'_j}	\\
+	&= -i\hbar \pder{\phi_r(x)}{x_j}
+\end{align*}
+and, similarly,
+\begin{align*}
+	\left[P^j, \pi_r(x)\right]
+	&= \int \diff[3]{\vb{x}'} \, \pi_r(\vb{x}',t)\pder{\phi_r(\vb{x}',t)}{x'_j}\pi_r(\vb{x},t) - \pi_r(\vb{x},t)\pi_r(\vb{x}',t)\pder{\phi_r(\vb{x}',t)}{x'_j}	\\
+	&= \int \diff[3]{\vb{x}'} \,
+	\pi_r(\vb{x}',t)\left[\pder{\phi_r(\vb{x}',t)}{x'_j}, \pi_r(\vb{x},t)\right]		\\
+	&= \int \diff[3]{\vb{x}'} \,
+	\pi_r(\vb{x}',t) \pder{}{x'_j}\left[\phi_r(\vb{x}',t), \pi_r(\vb{x},t)\right]		\\
+	&= i\hbar \int \diff[3]{\vb{x}'} \,
+	\pi_r(\vb{x}',t) \pder{}{x'_j}\delta\left(\vb{x}'-\vb{x}\right)	\\
+	&= -i\hbar \pder{\pi_r(x)}{x_j}			\done
+\end{align*}
+
+Consider an arbitrary operator $F(x)=F(\phi_r(x),\pi_r(x))$ that can be written as a power series of $\phi_r(x)$ and $\pi_r(x)$:
+\begin{equation*}
+	F(x) = \sum_{n=0}^{\infty} a_n \phi^n_r(x) + b_n \pi^n_r(x)
+\end{equation*}
+where $a_n$'s and $b_n$'s are arbitrary complex numbers.
+
+Using the commutator identity
+\begin{equation*}
+	\left[A, B^n\right] = nB^{n-1}\left[A,B\right]
+\end{equation*}
+we se that $F(x)$ satisfies:
+\begin{align*}
+	\left[P^j, F(x)\right] &= \sum_{m,n=0}^{\infty} a_m\left[P^j, \phi^m_r(x)\right] + b_n\left[P^j, \pi^n_r(x)\right]	\\
+	&= \sum_{m,n=0}^{\infty} a_m m\phi^{m-1}_r(x) \left[P^j, \phi_r(x)\right] + b_n n\pi^{n-1}_r(x) \left[P^j, \pi_r(x)\right]		\\
+	&= -i\hbar\sum_{m,n=0}^{\infty} a_m m\phi^{m-1}_r(x)\pder{\phi_r(x)}{x_j} + b_n n\pi^{n-1}_r(x)\pder{\pi_r(x)}{x_j}	\\
+	&= -i\hbar \pder{F(x)}{x_j}		\done
+\end{align*}
+
+Define the 4-momentum of the fields as: $P^\alpha = (H/c, P^j), \alpha = 0, ... \,, 3$ where $H$ is the Hamiltonian of the fields. Then, combining the above result with the Heisenberg equation of motion:
+\begin{equation*}
+	[H, F(x)] = -i\hbar c \pder{F(x)}{x_0}
+\end{equation*}
+gives the covariant equations of motion:
+\begin{equation*}
+	\left[P^\alpha, F(x)\right] = -i\hbar \pder{F(x)}{x_\alpha}			\done
+\end{equation*}
+\end{problem}
+
+
+
+\begin{problem}
+Consider a scalar field $\phi_r(x_\alpha)$ invariant under translations $x_\alpha \longrightarrow x'_\alpha = x_\alpha + \delta_\alpha$ where $\delta_\alpha$ is a constant 4-vector. i.e.,
+\begin{align*}
+	\phi'(x'_\alpha) &= \phi(x_\alpha)		\\
+	\intertext{or, equivalently,} 
+	\phi'(x_\alpha) &= \phi(x_\alpha - \delta_\alpha)
+\end{align*}
+
+In the limit of an infinitesimal transformation ($\delta_\alpha \ll 1$), we can write the transformation as:
+\begin{align*}
+	\phi'(x_\alpha) &= \phi(x_\alpha - \delta_\alpha)	\\
+	&= \phi(x_\alpha) - \delta_\alpha \pder{\phi}{x_\alpha} + \mathcal{O}\left(\delta^2\right)	\\
+	&\approx \phi(x_\alpha) + \delta_\alpha\frac{1}{i\hbar}\left[P^\alpha, \phi(x)\right]
+\end{align*}
+where we have used the result from the previous problem: $\left[P^\alpha, F(x)\right] = -i\hbar\pder{F(x)}{x_\alpha}$.
+
+Let us write the corresponding unitary transformation $U$ as:
+\begin{equation*}
+U = e^{i\delta_\alpha T^\alpha}
+\end{equation*}
+where $T^\alpha$ is a Hermitian operator ($T^{\alpha\dagger}=T^\alpha$). In terms of $U$, the same translation transformation can also be written as:
+\begin{align*}
+	\phi'(x) &= U\phi(x)U^\dagger	\\
+	&\approx (1+i\delta_\alpha T^\alpha) \phi(x) (1-i\delta_\alpha T^\alpha)	\\
+	&= \phi(x) + i\delta_\alpha\left[T^\alpha, \phi(x)\right] + \mathcal{O}(\delta^2)
+\end{align*}
+
+Comparing the two results, we see that $T^\alpha = -P^\alpha / \hbar$ and therefore:
+\begin{equation*}
+	U = e^{-i\delta_\alpha P^\alpha / \hbar}		\done
+\end{equation*}
+
+\end{problem}
+
+
+
+\section{The Klein-Gordon Field}
+
+\begin{problem}
+A real Klein-Gordon field can be written as:
+\begin{align*}
+	\phi(x) &= \phi^+(x) + \phi^-(x)	\\
+	&= \sum_{\vb{k}} \sqrt{\frac{\hbar c^2}{2V\omega_{\vb{k}}}} \left[a(\vb{k})e^{-ikx} + a^\dagger(\vb{k})e^{ikx}\right]
+\end{align*}
+where $\vb{k}$ is the wavenumber of the field and $k^0 = \omega_{\vb{k}}/c$.
+
+Then, we have:
+\begin{align*}
+	\dot{\phi}(x) &\define \pder{\phi(x)}{t}	\\
+	&= \sum_{\vb{k}} \sqrt{\frac{\hbar c^2}{2V\omega_{\vb{k}}}} 
+	\left[\left(-i\frac{\omega_{\vb{k}}}{c}c\right)a(\vb{k})e^{-ikx} + \left(i\frac{\omega_{\vb{k}}}{c}c\right) a^\dagger(\vb{k})e^{ikx}\right]	\\
+	&= -i\sum_{\vb{k}} \sqrt{\frac{\hbar c^2}{2V \omega_{\vb{k}}}} \omega_{\vb{k}}
+	\left[a(\vb{k})e^{-ikx} - a^\dagger(\vb{k})e^{-ikx}\right]
+\end{align*}
+and therefore:
+\begin{align*}
+	i\dot{\phi}(x) + \omega_{\vb{k}}\phi(x)
+	&= \sum_{\vb{k}} \sqrt{\frac{\hbar c^2}{2V\omega_{\vb{k}}}} \omega_{\vb{k}} 2a(\vb{k})e^{-ikx}
+\end{align*}
+
+To re-write the expression in the $\vb{k}$-space, use Fourier transform, i.e. apply $\int_{V} \diff[3]{\vb{x}} \, e^{ik'x}$ on both sides. Then, we get:
+\begin{align*}
+	\int_{V} \diff[3]{\vb{x}} \, e^{ik'x} \left(i\dot{\phi}(x) + \omega_{\vb{k}}\phi(x)\right)
+	&= \int_{V} \diff[3]{\vb{x}} \, \sum_{\vb{k}} \sqrt{\frac{2\hbar c^2 \omega_{\vb{k}}}{V}} a(\vb{k})e^{-ikx} e^{ik'x}	\\
+	&= \int_{V} \diff[3]{\vb{x}} \, \sum_{\vb{k}} \sqrt{\frac{2\hbar c^2 \omega_{\vb{k}}}{V}} a(\vb{k}) \delta_{\vb{k}\vb{k}'}	\\
+	&= \sqrt{2\hbar c^2 V \omega_{\vb{k}'}} a(\vb{k}')
+\end{align*}
+Rewriting this, we get:
+\begin{equation*}
+	a(\vb{k}) = \left(2\hbar c^2 V \omega_{\vb{k}}\right)^{-1/2} \int_{V} \diff[3]{\vb{x}} \, e^{ikx}\left(i\dot{\phi}(x) + \omega_{\vb{k}}\phi(x)\right)		\done
+\end{equation*}
+
+
+
+We define $x=(\vb{x},t)$ and $x'=(\vb{x}',t)$ to denote two different points in space. Then, we have the following commutator relationship:
+\begin{align*}
+	\left[a(\vb{k}), a^\dagger(\vb{k}')\right]
+	&= \frac{1}{2\hbar c^2 V \sqrt{\omega_{\vb{k}} \omega_{\vb{k}'}}} \int_V \diff[3]{\vb{x}} \int_V \diff[3]{\vb{x}'} \, e^{i\left(kx-k'x'\right)} \\
+	&\qquad \times \Big[ \left(i\dot{\phi}(x) + \omega_{\vb{k}}\phi(x)\right)\left(-i\dot{\phi}(x') + \omega_{\vb{k}'}\phi(x')\right)	\\
+	&\qquad \hspace{5em} - \left(-i\dot{\phi}(x') + \omega_{\vb{k}'}\phi(x')\right)\left(i\dot{\phi}(x) + \omega_{\vb{k}}\phi(x)\right)\Big]
+\end{align*}
+since $\phi(x)$ is a real field and thus a Hermitian operator after quantization.
+
+Given the commutator relationship $[\phi(\vb{x},t), \dot{\phi}(\vb{x}',t)]$, this then becomes:
+\begin{align*}
+	\left[a(\vb{k}, a^\dagger(\vb{k}'))\right] &= \frac{1}{2\hbar c^2 V \sqrt{\omega_{\vb{k}} \omega_{\vb{k}'}}} \int_V \diff[3]{\vb{x}} \int_V \diff[3]{\vb{x}'} \, e^{i\left(kx-k'x'\right)} \\
+	&\qquad \times \Big[i\omega_{\vb{k}'}[\dot{\phi}(x), \phi(x')] - i\omega_{\vb{k}}[\phi(x), \dot{\phi}(x')]\Big]	\\
+	&= \frac{1}{2\hbar c^2 V \sqrt{\omega_{\vb{k}} \omega_{\vb{k}'}}} \int_V \diff[3]{\vb{x}} \int_V \diff[3]{\vb{x}'} \, e^{i\left(kx-k'x'\right)} \\
+	&\qquad \times \Big[\omega_{\vb{k}'}\hbar c^2 \delta\left(\vb{x}'-\vb{x}\right) + \omega_{\vb{k}}\hbar c^2 \delta\left(\vb{x} - \vb{x}'\right)\Big]	\\
+	&= \frac{ \hbar c^2 \left(\omega_{\vb{k}}+\omega_{\vb{k}'}\right)}{2\hbar c^2 V \sqrt{\omega_{\vb{k}} \omega_{\vb{k}'}}} \int_V \diff[3]\vb{x} \,
+	e^{i\left(k-k'\right)x}	\\
+	&= \frac{\omega_{\vb{k}} + \omega_{\vb{k}'}}{2V\sqrt{\omega_{\vb{k}}\omega_{\vb{k}'}}} V \delta_{\vb{k}\vb{k}'} e^{i\left(\omega_{\vb{k}} - \omega_{\vb{k}'}\right)t}	\\
+	&= \delta_{\vb{k}\vb{k}'}		
+\end{align*}
+
+Also, we see that:
+\begin{align*}
+	\left[a(\vb{k}), a(\vb{k}')\right]
+	&= \frac{1}{2\hbar c^2 V \sqrt{\omega_{\vb{k}} \omega_{\vb{k}'}}} \int_V \diff[3]{\vb{x}} \int_V \diff[3]{\vb{x}'} \, e^{i\left(kx+k'x'\right)} \\
+	&\qquad \times \Big[ \left(i\dot{\phi}(x) + \omega_{\vb{k}}\phi(x)\right)\left(i\dot{\phi}(x') + \omega_{\vb{k}'}\phi(x')\right)	\\
+	&\qquad \hspace{5em} - \left(i\dot{\phi}(x') + \omega_{\vb{k}'}\phi(x')\right)\left(i\dot{\phi}(x) + \omega_{\vb{k}}\phi(x)\right)\Big]	\\
+	&= \frac{1}{2\hbar c^2 V \sqrt{\omega_{\vb{k}} \omega_{\vb{k}'}}} \int_V \diff[3]{\vb{x}} \int_V \diff[3]{\vb{x}'} \, e^{i\left(kx+k'x'\right)} \\
+	&\qquad \times \Big[i\omega_{\vb{k}'}[\dot{\phi}(x),\phi(x')] + i\omega_{\vb{k}}[\phi(x), \dot{\phi}(x')]\Big]	\\
+	&= \frac{1}{2\hbar c^2 V \sqrt{\omega_{\vb{k}} \omega_{\vb{k}'}}} \int_V \diff[3]{\vb{x}} \int_V \diff[3]{\vb{x}'} \, e^{i\left(kx+k'x'\right)} \\
+	&\qquad \times \Big[+\omega_{\vb{k}'}\hbar c^2\delta\left(\vb{x}'-\vb{x}\right) - \omega_{\vb{k}}\hbar c^2 \delta(\vb{x}-\vb{x}')\Big]	\\
+	&= \frac{1}{2 V \sqrt{\omega_{\vb{k}} \omega_{\vb{k}'}}} \int_V \diff[3]{\vb{x}} \, e^{i\left(k+k'\right)x} \Big[\omega_{\vb{k}'} - \omega_{\vb{k}}\Big]	\\
+	&= \frac{1}{2\sqrt{\omega_{\vb{k}}\omega_{\vb{k}'}}} \delta_{\vb{k},-\vb{k}'} (\omega_{\vb{k}'} - \omega_{\vb{k}})
+\end{align*}
+
+However, $\omega_{\vb{k}} = \omega_{-\vb{k}}$. Hence, when the delta function is non-zero (i.e. $\vb{k} = -\vb{k}'$), $\omega_{\vb{k}}-\omega_{\vb{k}'} = 0$. Therefore,
+\begin{gather*}
+	\left[a(\vb{k}), a(\vb{k}')\right] = 0 \\
+	\intertext{and, similarly,}
+	\left[a^\dagger(\vb{k}), a^\dagger(\vb{k}')\right] = 0		\done
+\end{gather*}
+\end{problem}
+
+
+
+\begin{problem}
+A pair of complex Klein-Gordon fields $\phi(x)$ and $\phi^\dagger(x)$ can be described by two independent real fields $\phi_r(x), r=1,2$:
+\begin{equation*}
+	\phi = \frac{1}{\sqrt{2}}\left(\phi_1 + i\phi_2\right) \,, \,
+	\phi^\dagger = \frac{1}{\sqrt{2}}\left(\phi_1 - i\phi_2\right)
+\end{equation*}
+and each of the real fields can be expanded as:
+\begin{equation*}
+	\phi_r(x) = \sum_{\vb{k}} \sqrt{\frac{\hbar c^2}{2V \omega_{\vb{k}}}} \left[a_r(\vb{k})e^{-ikx} + a^\dagger_r(\vb{k})e^{ikx}\right]
+\end{equation*}
+
+Now, suppose we wish to expand the complex field $\phi(x)$ as:
+\begin{equation*}
+	\phi(x) = \sum_{\vb{k}} \sqrt{\frac{\hbar c^2}{2V \omega_{\vb{k}}}} \left[a(\vb{k})e^{-ikx} + b^\dagger(\vb{k})e^{ikx}\right]
+\end{equation*}
+This expansion, in terms of the real fields $\phi_r(x)$, requires:
+\begin{align*}
+	&= \sum_{\vb{k}} \sqrt{\frac{\hbar c^2}{2V \omega_{\vb{k}}}} \frac{1}{\sqrt{2}}\left[a_1(\vb{k})e^{-ikx} + a^\dagger_1(\vb{k})e^{ikx} + ia_2(\vb{k})e^{-ikx} + ia^\dagger_2(\vb{k})e^{ikx}\right]	\\
+	&= \sum_{\vb{k}} \sqrt{\frac{\hbar c^2}{2V \omega_{\vb{k}}}}
+	\left[\frac{1}{\sqrt{2}}\big(a_1(\vb{k}) + ia_2(\vb{k})\big)e^{-ikx} + \frac{1}{\sqrt{2}}\big(a^\dagger_1(\vb{k}) + ia^\dagger_2(\vb{k})\big)e^{ikx}\right]
+\end{align*}
+
+Therefore, this expansion of the complex field $\phi(x)$ requires:
+\begin{align*}
+	a(\vb{k}) = \frac{1}{\sqrt{2}}\left(a_1(\vb{k}) + ia_2(\vb{k})\right)
+\end{align*}
+and
+\begin{align*}
+	b(\vb{k}) = \frac{1}{\sqrt{2}}\left(a_1(\vb{k}) - ia_2(\vb{k})\right)		\done
+\end{align*}
+
+From here on, let $x=(\vb{x},t)$ and $x'=(\vb{x}',t)$. In other words, we will not consider commutators of operators at different times in this problem.
+
+Now, from the commutator relationships of the real field operators, we can compute those of the complex field operators.
+\begin{align*}
+	\left[\phi(x), \dot{\phi}^\dagger(x')\right]
+	&= \left[\frac{1}{\sqrt{2}}\left(\phi_1(x)+i\phi_2(x)\right), \frac{1}{\sqrt{2}}\left(\dot{\phi}_1(x') - i\dot{\phi}_2(x')\right)\right]	\\
+	&= \frac{1}{2}\left(\left[\phi_1(x), \dot{\phi}_1(x')\right] + \left[\phi_2(x), \dot{\phi}_2(x')\right]\right)	\\
+	&= i\hbar c^2 \delta\left(\vb{x}-\vb{x}'\right)
+\end{align*}
+since $\left[\phi_r(x), \phi_r(x')\right] = i \hbar c^2 \delta\left(\vb{x}-\vb{x}'\right)$ for any real field $\phi_r$.
+
+As one would expect based on the commutators of real fields, we see that:
+\begin{align*}
+	\big[\phi(x), \phi(x')\big] &= \big[\dot{\phi}(x), \dot{\phi}(x')\big]	\\
+	= \big[\phi^\dagger(x), \phi^\dagger(x')\big] &= \big[\dot{\phi}^\dagger(x), \dot{\phi}^\dagger(x')\big] = 0
+\end{align*}
+Also, because $\phi_1, \phi_2$ commute (at a given time) and $\phi, \phi^\dagger$ are merely the linear combinations, we also see that:
+\begin{equation*}
+	\left[\phi(x), \phi^\dagger(x')\right] = \left[\dot{\phi}(x), \dot{\phi}^\dagger(x')\right] = 0
+\end{equation*}
+(In this sense, $\phi$ and $\phi^\dagger$ are independent fields.)
+
+One less intuitive (and different from the properties of real fields) result is that:
+\begin{align*}
+	\left[\phi(x), \dot{\phi}(x')\right]
+	&= \left[\frac{1}{\sqrt{2}}\left(\phi_1(x)+i\phi_2(x)\right), \frac{1}{\sqrt{2}}\left(\dot{\phi}_1(x') + i\dot{\phi}_2(x')\right)\right]	\\
+	&= \frac{1}{2} \left(\left[\phi_1(x), \dot{\phi}_1(x')\right] - \left[\phi_2(x), \dot{\phi}_2(x')\right]\right)	\\
+	&= 0
+\end{align*}
+and, similarly, $\left[\phi^\dagger(x), \dot{\phi}^\dagger(x')\right]=0$.
+
+Furthermore, we see that:
+\begin{align*}
+	\left[a(\vb{k}), a^\dagger(\vb{k}')\right]
+	&= \left[\frac{1}{\sqrt{2}}\big(a_1(\vb{k}) + ia_2(\vb{k})\big), \frac{1}{\sqrt{2}}\big(a^\dagger_1(\vb{k}')-ia^\dagger_2(\vb{k}')\big)\right]	\\
+	&= \frac{1}{2}\Big(\big[a_1(\vb{k}), a^\dagger_1(\vb{k}')\big] + \big[a_2(\vb{k}), a^\dagger_2(\vb{k}')\big]\Big)	\\
+	&= \delta_{\vb{k}\vb{k}'}
+\end{align*}
+and, similarly, $\left[b(\vb{k}), b^\dagger(\vb{k}')\right] = \delta_{\vb{k}, \vb{k}'}$.
+
+It is easy to see that
+\begin{equation*}
+	\big[a(\vb{k}), a(\vb{k}')\big] = \big[b(\vb{k}), b(\vb{k}')\big] = \big[a(\vb{k}), b(\vb{k}')\big] = 0
+\end{equation*}
+since these will involve annihilation operators \emph{only}, and the two real fields are independent. The same holds for their Hermitian conjugates (creation operators only).
+
+Lastly, we also can compute:
+\begin{align*}
+	\big[a(\vb{k}), b^\dagger(\vb{k}')\big]
+	&= \left[\frac{1}{\sqrt{2}}\big(a_1(\vb{k}) + ia_2(\vb{k})\big), \frac{1}{\sqrt{2}}\big(a^\dagger_1(\vb{k}') + ia^\dagger_2(\vb{k}')\big)\right]	\\
+	&= \frac{1}{2}\Big(\big[a_1(\vb{k}), a^\dagger_1(\vb{k}')\big] - \big[a_2(\vb{k}), a^\dagger_2(\vb{k}')\big]\Big)	\\
+	&= 0		\done
+\end{align*}
+\end{problem}
+
+
+
+\begin{problem}
+The Feynman $\Delta$-function can be written as:
+\begin{equation*}
+	\Delta_\text{F}(x) = \frac{1}{(2\pi)^4} \int\diff^4{k} \, \frac{e^{-ikx}}{k^2-\mu^2+i\epsilon}
+\end{equation*}
+where we let $\epsilon$ tend to zero after the integration.
+
+Applying the operator $\left(\dalem+\mu^2\right)$ to this function, we get:
+\begin{align*}
+	\left(\dalem + \mu^2\right) \Delta_\text{F}(x)
+	&= \left(\dalem + \mu^2\right) \frac{1}{(2\pi)^4} \int\diff[4]{k} \, \frac{e^{-ikx}}{k^2-\mu^2+i\epsilon}	\\
+	&= \frac{1}{(2\pi)^4} \int\diff[4]{k}\, \frac{1}{k^2-\mu^2+i\epsilon}\left(\dalem + \mu^2\right)e^{-ikx}	\\
+	&= \frac{1}{(2\pi)^4} \int\diff[4]{k} \, \frac{1}{k^2-\mu^2+i\epsilon} \left(-k^2+\mu^2\right)e^{-ikx}	\\
+	&= \frac{1}{(2\pi)^4} \int\diff[4]{k} \, \frac{-e^{-ikx}}{1+i\kappa}	\\
+	&= -\delta^{(4)}(x)			\done
+\end{align*}
+where we have defined $\kappa = \epsilon/(k^2-\mu^2)$ and let it tend to zero.
+
+Hence, the Feynman $\Delta$-function satisfies the inhomogeneous Klein-Gordon equation.
+\end{problem}
+
+
+
+\begin{problem}
+Let $\phi$ be a complex Klein-Gordon field, representing a charged meson. It can be written as:
+\begin{equation*}
+	\phi(x) = \phi^+(x) + \phi^-(x) = \sum_{\vb{k}} \sqrt{\frac{\hbar c^2}{2V\omega_{\vb{k}}}} \big[a(\vb{k})e^{-ikx} + b^\dagger(\vb{k})e^{ikx}\big]
+\end{equation*}
+where the operators $a$ and $b$ follow the commutator relationships derived earlier.
+
+Recall from Problem~2 that:
+\begin{equation*}
+	\big[a(\vb{k}), a(\vb{k}')\big] = \big[b^\dagger(\vb{k}), b^\dagger(\vb{k}')\big] = \big[a(\vb{k}), b^\dagger(\vb{k}')\big] = 0
+\end{equation*}
+and therefore, unlike the commutator of a real field, we now have:
+\begin{equation*}
+	\left[\phi(x), \phi(x')\right] = 0
+\end{equation*}
+for any two different points $x,x'$ in spacetime.
+
+Instead, for complex fields, we see that:
+\begin{align*}
+	\big[\phi(x), \phi^\dagger(x')\big]
+	&= \big[\phi^+(x), \phi^{\dagger-}(x')\big] + \big[\phi^-(x), \phi^{\dagger+}(x')\big]
+\end{align*}
+is non-zero.
+
+The first commutator is:
+\begin{align*}
+	\big[\phi^+(x), \phi^{\dagger-}(x')\big]
+	&= \frac{\hbar c^2}{2V} \sum_{\vb{k}, \vb{k}'} \frac{1}{\sqrt{\omega_{\vb{k}} \omega_{\vb{k}'}}} \big[a(\vb{k}), a^\dagger(\vb{k}')\big]e^{-i\left(kx-k'x\right)}	\\
+	&= \frac{\hbar c^2}{2V} \sum_{\vb{k}, \vb{k}'} \frac{1}{\sqrt{\omega_{\vb{k}} \omega_{\vb{k}'}}} \delta_{\vb{k}\vb{k}'} e^{-i\left(kx-k'x\right)}	\\
+	&= \frac{\hbar c^2}{2V} \sum_{\vb{k}}	\frac{e^{-ik(x-x')}}{\omega_{\vb{k}}}
+\intertext{which, upon taking the limit $V\rightarrow\infty$, becomes:}
+	&= \frac{\hbar c^2}{2(2\pi)^3} \int \diff[3]{\vb{k}} \, \frac{e^{-ik(x-x')}}{\omega_{\vb{k}}}	\\
+	&\define i\hbar c \Delta^+(x-x')
+\end{align*}
+where
+\begin{equation*}
+	\Delta^+(x-x') \define \frac{-ic}{2(2\pi)^3}\int\frac{\diff[3]{\vb{k}}}{\omega_{\vb{k}}} e^{-ik(x-x')}
+\end{equation*}
+is defined the same way as it was defined for real field Klein-Gordon fields (neutral mesons). Similarly, the second commutator is:
+\begin{align*}
+	\big[\phi^-(x), \phi^{\dagger+}(x')\big]
+	&= i\hbar c \Delta^-(x-x')
+\end{align*}
+
+Therefore, we have:
+\begin{equation*}
+	\big[\phi(x), \phi^\dagger(x')\big] = i\hbar c \left(\Delta^+(x-x') + \Delta^-(x-x')\right) \define i\hbar c \Delta(x-x')
+\end{equation*}
+where $\Delta(x) \define \Delta^+(x) + \Delta^-(x)$.
+
+Now, define the Feynman $\Delta$-function of a complex Klein-Gordon field $\phi$ as:
+\begin{equation*}
+	i\hbar c \Delta_\text{F}(x-x') \define \ev{\timep{\phi(x)\phi^\dagger(x')}}{0}
+\end{equation*}
+where $\timep{\hspace{1em}}$ is the time-ordered product.
+
+Then, this Feynman $\Delta$-function, or \emph{the Feynman propagator}, turns out to be of the same form as that of a real Klein-Gordon field:
+\begin{align*}
+	\Delta_\text{F}(x) &= \theta(t)\Delta^+(x) - \theta(-t)\Delta^-(x)		\\
+	&= \frac{1}{(2\pi)^4} \int \diff[4]{k} \frac{e^{-ikx}}{k^2-\mu^2+i\epsilon}		\done
+\end{align*}
+where $\theta(t)$ is the Heaviside step function.
+
+If $t'<t$, then $\timep{\phi(x)\phi^\dagger(x')} = \phi(x)\phi^\dagger(x')$, and the Feynman propagator becomes:
+\begin{align*}
+	i\hbar c \Delta_\text{F}(x-x') &= \ev{\phi(x)\phi^\dagger(x')}{0}	\\
+	&= \ev{\phi^+(x)\phi^{\dagger-}(x')}{0}
+\end{align*}
+which is interpreted as: a particle is created by $a^\dagger(\vb{k})$ at $x'$, then propagates to $x$ which is a later point in time, and is absorbed (annihilated) by $a(\vb{k})$ at $x$.
+
+When $t'>t$, then $\timep{\phi(x)\phi^\dagger(x')} = \phi^\dagger(x')\phi(x)$, and therefore:
+\begin{align*}
+	i\hbar c \Delta_\text{F}(x-x') &= \ev{\phi^\dagger(x')\phi(x)}{0}	\\
+	&= \ev{\phi^{\dagger+}(x')\phi^-(x)}{0}
+\end{align*}
+which is interpreted as: an anti-particle is created by $b^\dagger(\vb{k})$ at $x$, then propagates to $x'$, and is absorbed (annihilated) by $b(\vb{k})$ at $x$.
+\end{problem}
+
+
+
+\begin{problem}
+The charge conjugation operator $\mathscr{C}$ is defined by:
+\begin{equation*}
+	\phi(x) \longrightarrow \mathscr{C}\phi(x)\mathscr{C}^{-1} = \eta_\text{c} \, \phi^\dagger(x)
+\end{equation*}
+where $\mathscr{C}$ is a unitary operator which leaves the vacuum invariant (i.e., $\mathscr{C}\ket{0} = \ket{0}$), and $\eta_\text{c}$ is a phase factor.
+
+First, note that:
+\begin{align*}
+	\phi^\dagger(x) &\rightarrow \mathscr{C}\phi^\dagger(x)\mathscr{C}^{-1}	\\
+\intertext{and, since $\mathscr{C}$ is unitary, we can rewrite this as:}
+	&= (\mathscr{C}^{-1})^\dagger \phi^\dagger(x) C^\dagger	\\
+	&= \left(\mathscr{C} \phi(x) \mathscr{C}^{-1}\right)^\dagger	\\
+	&= \left(\eta_\text{c} \phi^\dagger(x)\right)^\dagger	\\
+	&= \eta_\text{c}^* \, \phi(x)
+\end{align*}
+
+Then, under the charge conjugation, the complex Klein-Gordon Lagrangian density $\lagr = \mathrm{N}\Big((\partial_\alpha \phi^\dagger) (\partial^\alpha \phi) - \mu^2 \phi^\dagger\phi\Big)$ becomes:
+\begin{align*}
+	\lagr' &= \mathrm{N}\Big((\eta^*_\text{c}\partial_\alpha \phi) (\eta_\text{c}\partial^\alpha \phi^\dagger) - \mu^2 (\eta^*_\text{c}\phi)(\eta_\text{c}\phi^\dagger) \Big)	\\
+	&= \left(\eta^*_\text{c} \eta_\text{c}\right)
+	\mathrm{N}\Big((\partial_\alpha \phi)(\partial^\alpha \phi^\dagger) - \mu^2 \phi\phi^\dagger \Big)	\\
+	\intertext{Since all commutators inside the normal product vanish, this simplifies to:}
+	&= \mathrm{N}\Big((\partial_\alpha \phi^\dagger) (\partial^\alpha \phi) - \mu^2 \phi^\dagger\phi\Big)		\\
+	&= \lagr			\done
+\end{align*}
+Thus, the Lagrangian density is invariant under the charge conjugation.
+
+
+On the other hand, the charge-current density
+\begin{equation*}
+	s^\alpha = -i\frac{q}{\hbar} \mathrm{N}\Big(\phi \partial^\alpha\phi^\dagger - \phi^\dagger \partial^\alpha\phi\Big)
+\end{equation*}
+becomes:
+\begin{align*}
+	s'^\alpha &= -i\frac{q}{\hbar} \mathrm{N}\Big((\eta_\text{c}\phi^\dagger)\partial^\alpha(\eta^*_\text{c}\phi) - (\eta^*_\text{c}\phi)\partial^\alpha(\eta_\text{c}\phi^\dagger)\Big)	\\
+	&= -i\frac{q}{\hbar} (\eta^*_\text{c}\eta_\text{c}) \mathrm{N}\Big(\phi^\dagger\partial^\alpha \phi - \phi \partial^\alpha \phi^\dagger\Big)	\\
+	&= +i \frac{q}{\hbar} \mathrm{N}\Big(\phi \partial^\alpha\phi^\dagger - \phi^\dagger \partial^\alpha\phi\Big)		\\
+	&= -s^\alpha			\done
+\end{align*}
+Thus, the charge-current density changes sign under the charge conjugation.
+
+Writing $\phi(x), \phi^\dagger(x)$ out in their expansion forms in terms of the absorption and creation operators, we see that:
+\begin{align*}
+	\mathscr{C} \phi(x) \mathscr{C}^{-1}
+	&= \sum_{\vb{k}} \sqrt{\frac{\hbar c^2}{2V\omega_{\vb{k}}}} \big[\mathscr{C} a(\vb{k}) \mathscr{C}^{-1} e^{-ikx} + \mathscr{C} b^\dagger(\vb{k}) \mathscr{C}^{-1} e^{ikx}\big]	\\
+	&= \eta_\text{c} \, \phi^\dagger(x)	\\
+	&= \eta_\text{c} \sum_{\vb{k}} \sqrt{\frac{\hbar c^2}{2V \omega_{\vb{k}}}} \big[a^\dagger(\vb{k})e^{ikx} + b(\vb{k})e^{-ikx}\big]
+\end{align*}
+which implies that:
+\begin{equation*}
+	\mathscr{C} a(\vb{k}) \mathscr{C}^{-1} = \eta_\text{c}\, b(\vb{k})	\,,
+	\, \mathscr{C} b(\vb{k}) \mathscr{C}^{-1} = \eta^*_\text{c} \, a(\vb{k})
+\end{equation*}
+
+Then, we also see that, under the charge conjugation, single-particle states transform as:
+\begin{align*}
+	\mathscr{C} \ket{a,\vb{k}} &= \mathscr{C} a^\dagger(\vb{k}) \ket{0}	\\
+	&= \mathscr{C} a^\dagger(\vb{k}) \mathscr{C}^{-1} \ket{0}	\\
+	&= \left(\mathscr{C}a(\vb{k})\mathscr{C}^{-1}\right)^\dagger \ket{0}	\\
+	&= \eta^*_\text{c} \, b^\dagger(\vb{k})\ket{0}	\\
+	&= \eta^*_\text{c} \ket{b,\vb{k}}
+\intertext{and, similarly,}
+	\mathscr{C} \ket{b,\vb{k}} &= \eta_\text{c} \ket{a,\vb{k}}		\done
+\end{align*}
+where we have used the fact that the vacuum state $\ket{0}$ is unchanged by $\mathscr{C}$ or $\mathscr{C}^{-1}$.
+
+Thus, the charge conjugation $\mathscr{C}$ \emph{interchanges} the particles ($a$-particles) and the anti-particles ($b$-particles).
+\end{problem}
+
+
+
+\begin{problem}
+The parity transformation (i.e. spatial inversion) of the Hermitian (real) Klein-Gordon field $\phi(x)$ is defined by:
+\begin{equation*}
+	\phi(\vb{x},t) \longrightarrow \mathscr{P}\phi(\vb{x},t)\mathscr{P}^{-1} = \eta_\text{p} \, \phi(-\vb{x},t)
+\end{equation*}
+where the parity operator $\mathscr{P}$ is unitary which leaves the vacuum invariant (i.e., $\mathscr{P}\ket{0} = \ket{0}$), and $\eta_\text{p} = \pm1$ is called \emph{the intrinsic parity} of the field. Note that $\mathscr{P}$ \emph{only} influences the spatial argument of the field, but not the time $t$.
+
+Under the given parity transformation, the Lagrangian density of the real Klein-Gordon field $\lagr = \frac{1}{2} \left((\partial_\alpha \phi)(\partial^\alpha \phi) - \mu^2\phi^2\right)$ transform as:
+\begin{align*}
+	\lagr'(\vb{x},t) &= \frac{1}{2} \left[\left(\eta_\text{p}\pder{\phi(-\vb{x},t)}{x^\alpha}\right)\left(\eta_\text{p}\pder{\phi(-\vb{x},t)}{x_\alpha}\right) - \mu^2 \eta_\text{p}^2 \phi^2(-\vb{x},t) \right]	\\
+	&= \frac{\eta_\text{p}^2}{2}\left[\frac{1}{c^2}\npder{2}{\phi(-\vb{x},t)}{t} - \left(\grad{\phi(-\vb{x},t)}\right)^2 - \mu^2\phi^2(-\vb{x},t)\right]	\\
+	&= \frac{1}{2} \left[\frac{1}{c^2}\npder{2}{\phi(\vb{x},t)}{t} - (-1)^2(\grad{\phi(\vb{x},t)})^2 - \mu^2\phi^2(-\vb{x},t)\right]	\\
+	&= \frac{1}{2} \left[(\partial_\alpha \phi(\vb{x},t))(\partial^\alpha \phi(\vb{x,}t)) - \mu^2\phi^2(-\vb{x},t)\right]
+\end{align*}
+where we have used the chain rule for $\grad$ and the fact that $\eta_\text{p}^2=+1$.
+
+Also, $\phi^2$ is necessarily an even function of each component of $x$. i.e.,
+\begin{equation*}
+	\phi^2(\vb{x},t) = \phi^2(-\vb{x},t)
+\end{equation*}
+
+Thus, the Lagrangian density $\lagr$ is invariant under the parity transformation:
+\begin{equation*}
+	\lagr'(\vb{x},t) = \frac{1}{2}\left[(\partial_\alpha \phi(\vb{x},t))(\partial^\alpha \phi(\vb{x},t)) - \mu^2\phi^2(\vb{x},t)\right] = \lagr(\vb{x},t)		\done
+\end{equation*}
+
+Next, using the field operator $\phi(x)$ in the expansion form in terms of the absorption and creation operators, we can write:
+\begin{align*}
+	\phi(-\vb{x},t)	&= \sum_{\vb{k}'} \sqrt{\frac{\hbar c^2}{2V \omega_{\vb{k}'}}} \big[a(\vb{k}')e^{-i(\omega_{\vb{k}'}t + \vb{k}'\dotp\vb{x})} + a^\dagger(\vb{k}')e^{i(\omega_{\vb{k}'}t + \vb{k}'\dotp\vb{x})}\big]
+\intertext{Define $\vb{k} = -\vb{k}'$. Note that $\omega_{\vb{k}'} = \omega_{-\vb{k}} =\omega_{\vb{k}}$. Then, we can write:}
+	&= \sum_{\vb{k}} \sqrt{\frac{\hbar c^2}{2V\omega_{\vb{k}}}}
+	\big[a(-\vb{k})e^{-i(\omega_{\vb{k}}t - \vb{k}\dotp\vb{x})} + a^\dagger(-\vb{k})e^{i(\omega_{\vb{k}}t - \vb{k}\dotp\vb{x})}\big]
+\end{align*}
+
+Then, the parity transformation of $\phi(x)$ can be written as:
+\begin{align*}
+	\mathscr{P} \phi(\vb{x},t) \mathscr{P}^{-1}
+	&= \sum_{\vb{k}} \sqrt{\frac{\hbar c^2}{2V \omega_{\vb{k}}}}
+	\big[\mathscr{P}a(\vb{k})\mathscr{P}^{-1}e^{-i(\omega_{\vb{k}}t - \vb{k}\dotp\vb{x})}
+	+ \mathscr{P}a^\dagger(\vb{k})\mathscr{P}^{-1}e^{i(\omega_{\vb{k}}t - \vb{k\dotp\vb{x}})}\big]	\\
+	&= \eta_\text{p} \sum_{\vb{k}} \sqrt{\frac{\hbar c^2}{2V\omega_{\vb{k}}}}
+	\big[a(-\vb{k})e^{-i(\omega_{\vb{k}}t - \vb{k}\dotp\vb{x})} + a^\dagger(-\vb{k})e^{i(\omega_{\vb{k}}t - \vb{k}\dotp\vb{x})}\big]
+\end{align*}
+
+Therefore, we derive the transformation laws for the absorption and creation operators under $\mathscr{P}$:
+\begin{equation*}
+	\mathscr{P} a(\vb{k}) \mathscr{P}^{-1} = \eta_\text{p} \, a(-\vb{k})	\,, \, \mathscr{P} a^\dagger(\vb{k}) \mathscr{P}^{-1} = \eta_\text{p} \, a^\dagger(-\vb{k})
+\end{equation*}
+
+Then, we can derive how an arbitrary $n$-particle state transforms:
+\begin{align*}
+	\mathscr{P} \ket{\vb{k}_1, ... \,, \vb{k}_n}
+	&= \mathscr{P} a^\dagger(\vb{k}_1) \,... \, a^\dagger(\vb{k}_n) \ket{0}	\\
+	&= \mathscr{P} a^\dagger(\vb{k}_1) \,... \, a^\dagger(\vb{k}_n) \mathscr{P}^{-1} \ket{0}	\\
+	&= \left(\mathscr{P}a^\dagger(\vb{k}_1)\mathscr{P}^{-1}\right)\,...\,
+	\left(\mathscr{P}a^\dagger(\vb{k}_n)\mathscr{P}^{-1}\right) \ket{0}	\\
+	&= \eta_\text{p}^n a^\dagger(-\vb{k}_1) \, ... \, a^\dagger(-\vb{k}_n) \ket{0}	\\
+	&= \eta_\text{p}^n \ket{-\vb{k}_1, ... \,, -\vb{k}_n}		\done
+\end{align*}
+
+Now, let $A$ and $B$ arbitrary operators, and define:
+\begin{equation*}
+	B_0=B , \quad B_n =\left[A, B_{n-1}\right] , \quad \text{for } n=1, 2, ...
+\end{equation*}
+Then, the following holds identically:
+\begin{equation*}
+	e^{i\alpha A} B e^{-i\alpha A} = \sum_{n=0}^{\infty} \frac{(i\alpha)^n}{n!} B_n
+\end{equation*}
+
+We choose $B = B_0 = a(\vb{k})$.
+
+\begin{subproblem}
+	First, we define:
+	\begin{gather*}
+		\mathscr{P}_1 \define e^{i\alpha_1 A_1}	\\
+	\intertext{where}
+		\alpha_1 = -\frac{\pi}{2} , \quad A_1 = \sum_{\vb{k}}a^\dagger(\vb{k})a(\vb{k})
+	\end{gather*}
+	Then, we can calculate the commutators $[A_1, B_{n-1}]$:
+	\begin{align*}
+		[A_1, B_0] &= \left[\sum_{\vb{k}'} a^\dagger(\vb{k}')a(\vb{k}'), a(\vb{k})\right]	\\
+		&= \sum_{\vb{k}'} \left[a^\dagger(\vb{k}'), a(\vb{k})\right]a(\vb{k}')	\\
+		&= -\sum_{\vb{k}'} \delta_{\vb{k}'\vb{k}} a(\vb{k}')	\\
+		&= -a(\vb{k})
+	\end{align*}
+	and, by induction,
+	\begin{equation*}
+		\left[A_1, B_{n-1}\right] = (-1)^n \, a(\vb{k})
+	\end{equation*}
+	
+	Therefore, we get:
+	\begin{align*}
+		\mathscr{P}_1 a(\vb{k}) \mathscr{P}_1^{-1}
+		&= e^{i\alpha_1A_1} a(\vb{k}) e^{-i\alpha_1A_1}	\\
+		&= \sum_{n=0}^{\infty} \frac{1}{n!} \left(+i\frac{\pi}{2}\right)^n \, a(\vb{k})	\\
+		&= e^{i\pi/2} a(\vb{k})	\\
+		&= i a(\vb{k})
+	\end{align*}
+\end{subproblem}
+
+\begin{subproblem}
+	Next, we define:
+	\begin{gather*}
+		\mathscr{P}_2 \define e^{i\alpha_2 A_2} 	\\
+	\intertext{where}
+		\alpha_2 = \frac{\pi}{2}\eta_\text{p} , \quad
+		A_2 = \sum_{\vb{k}} a^\dagger(\vb{k}) a(-\vb{k})
+	\end{gather*}
+	Then, the commutators $[A_2, B_{n-1}]$ are:
+	\begin{align*}
+		[A_2, B_{n_1}] &= (-1)^n \, a(-\vb{k})
+	\end{align*}
+	
+	Therefore, we get:
+	\begin{align*}
+		\mathscr{P}_2 a(\vb{k}) \mathscr{P}_2^{-1}
+		&= e^{i\alpha_2A_2} a(\vb{k}) e^{-i\alpha_2A_2}	\\
+		&= \sum_{n=0}^{\infty} \frac{1}{n!} \left(-i\frac{\pi}{2}\eta_\text{p}\right)^n a(-\vb{k})	\\
+		&= e^{-i\eta_\text{p}\pi/2} a(-\vb{k})	\\
+		&= -i \eta_\text{p} a(-\vb{k})
+	\end{align*}
+\end{subproblem}
+
+Since $\alpha_r$'s and $A_r$'s are real for both $r=1,2$, $\mathscr{P}_r = e^{i\alpha_r A_r}$ are unitary. Therefore, the product $\mathscr{P}_1 \mathscr{P}_2$ is unitary as well. Note that the product operator satisfies the following identity:
+\begin{align*}
+	\left(\mathscr{P}_1\mathscr{P}_2\right) a(\vb{k}) \left(\mathscr{P}_1\mathscr{P}_2\right)^{-1}
+	&= \mathscr{P}_1 \mathscr{P}_2 a(\vb{k}) \mathscr{P}_2^{-1} \mathscr{P}_1^{-1}	\\
+	&= \mathscr{P}_1 \left(-i\eta_\text{p}a(-\vb{k})\right) \mathscr{P}_1^{-1}	\\
+	&= +\eta_\text{p} a(-\vb{k})		\done
+\end{align*}
+which was derived earlier in this problem as the parity transformation law for the absorption operator $a(\vb{k})$.
+
+Thus, $\mathscr{P}_1\mathscr{P}_2$ gives an explicit form for the parity operator $\mathscr{P}$.
+\end{problem}
+
+\pagebreak
+
+
+
+\section{The Dirac Field}
+
+
+\end{document}
