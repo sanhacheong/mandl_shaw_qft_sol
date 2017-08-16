@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.8.10)  15 AUG 2017 22:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.8.10)  15 AUG 2017 22:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2242,24 +2242,24 @@ Overfull \hbox (3.8972pt too wide) in paragraph at lines 1012--1013
 f the Her-mi-tian (real) Klein-Gordon
  []
 
-[24] [25] [26] [27] 
+[24] [25] [26] [27] [28] 
 AED: lastpage setting LastPage
-[28]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1200.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1200.
+[29]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1225.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1225.
  (./mandl_shaw_solution.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1200.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1200.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1225.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1225.
 
 Package rerunfilecheck Info: File `mandl_shaw_solution.out' has not changed.
-(rerunfilecheck)             Checksum: 0E35B0600BB60E7876AFDCCE3A94DD88;1582.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1200.
+(rerunfilecheck)             Checksum: F12698119796D9B9D6FD48FD181B388E;1632.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1225.
  ) 
 Here is how much of TeX's memory you used:
- 28842 strings out of 493029
- 567939 string characters out of 6136234
+ 28814 strings out of 493029
+ 567794 string characters out of 6136234
  647556 words of memory out of 5000000
- 31841 multiletter control sequences out of 15000+600000
+ 31842 multiletter control sequences out of 15000+600000
  41710 words of font info for 50 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,16n,80p,10415b,575s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -2284,10 +2284,10 @@ s/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols
 texmf/fonts/type1/public/tex-gyre/qtmr.pfb></usr/share/texmf/fonts/type1/public
 /tex-gyre/qtmri.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/rsfs/rsfs
 10.pfb>
-Output written on mandl_shaw_solution.pdf (28 pages, 313619 bytes).
+Output written on mandl_shaw_solution.pdf (29 pages, 314117 bytes).
 PDF statistics:
- 387 PDF objects out of 1000 (max. 8388607)
- 332 compressed objects within 4 object streams
- 89 named destinations out of 1000 (max. 500000)
- 245 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 358 PDF objects out of 1000 (max. 8388607)
+ 302 compressed objects within 4 object streams
+ 60 named destinations out of 1000 (max. 500000)
+ 253 words of extra memory for PDF output out of 10000 (max. 10000000)
 
