@@ -1149,5 +1149,52 @@ Thus, $\mathscr{P}_1\mathscr{P}_2$ gives an explicit form for the parity operato
 
 \section{The Dirac Field}
 
+\begin{problem}
+For any given Dirac field $\psi$, we have the anti-commutator relationship:
+\begin{equation*}
+	\big\{\psi(x), \overbar{\psi}(y)\big\} \define \big[\psi(x), \overbar{\psi}(y)\big]_+ = i S(x-y)
+\end{equation*}
+where
+\begin{gather*}
+	S(x) = S^+(x) + S^-(x) = \left(i\gamma^\mu\pder{}{x^\mu} + \frac{mc}{\hbar}\right) \Delta(x)	\\
+	\Delta(x) = \Delta^+(x) + \Delta^-(x)
+	= \frac{-c}{(2\pi)^3} \int \frac{\diff[3]{\vb{k}}}{\omega_{\vb{k}}} \sin(kx)
+\end{gather*}
+
+First, note that we have:
+\begin{align*}
+	\pder{}{x^\mu} \Delta(x) &= \frac{-c}{(2\pi)^3} \int \frac{\diff[3]{\vb{k}}}{\omega_{\vb{k}}} \pder{}{x^\mu} \sin(k_\nu x^\nu)	\\
+	&= \frac{-c}{(2\pi)^3} \int \frac{\diff[3]{\vb{k}}}{\omega_{\vb{k}}} k_\mu \cos\left(\omega_{\vb{k}}t - \vb{k}\dotp\vb{x}\right)
+\end{align*}
+
+Now, consider two points $x,y$ at a same given time. That is,
+\begin{equation*}
+	x=\left(ct, \vb{x}\right) \text{ and } y=\left(ct,\vb{y}\right)
+\end{equation*}
+Then, the anti-commutator above becomes:
+\begin{align*}
+	\left.\big\{\psi(x), \overbar{\psi}(y) \big\}\right|_{x^0=y^0}
+	&= iS(0, \vb{x}-\vb{y})	\\
+	&= \frac{-ic}{(2\pi)^3} \int \frac{\diff[3]{\vb{k}}}{\omega_{\vb{k}}}
+	\Big[i\gamma^\mu k_\mu \cos\left(-\vb{k}\dotp(\vb{x}-\vb{y})\right) + \sin\left(-\vb{k}\dotp(\vb{x}-\vb{y})\right)\Big]
+\end{align*}
+Note that, if $\vb{x}-\vb{y} \neq \vb{0}$, the integrand is an odd function of $\vb{k}$. Therefore, the anti-commutator vanishes if $x^0=y^0$ and $x^i \neq y^i$. However, if $x=y$, the above expression becomes:
+\begin{align*}
+	\frac{-ic}{(2\pi)^3} \int \frac{\diff[3]{\vb{k}}}{\omega_{\vb{k}}}
+	\Big[i\gamma^\mu k_\mu \cos0 + \sin0\Big]
+	&= 	\frac{-ic}{(2\pi)^3} \int \frac{\diff[3]{\vb{k}}}{\omega_{\vb{k}}}
+	i\Big[\gamma^0\frac{\omega_{\vb{k}}}{c} - \gamma^i k_i\Big]	\\
+	&= +\gamma^0 \frac{1}{(2\pi)^3} \int \diff[3]{\vb{k}}
+\end{align*}
+where the odd part of the integrand $\gamma^i k_i$ vanishes again.
+
+Therefore, the equal-time commutator for the Dirac field $\psi$ is:
+\begin{equation*}
+	\big\{\psi(x), \overbar{\psi}(y)\big\} \define \big[\psi(x), \overbar{\psi}(y)\big]_+ = \gamma^0 \delta(\vb{x}-\vb{y})
+\end{equation*}
+\end{problem}
+
+
+
 
 \end{document}
