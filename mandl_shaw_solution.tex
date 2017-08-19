@@ -1221,5 +1221,82 @@ Hence, the functions $S(x)$ and $S_\text{F}(x)$ satisfy the homogeneous and inho
 
 
 
+\begin{problem}
+The charge-current density operator of the Dirac field $\psi(x)$ is given by:
+\begin{equation*}
+	s^\mu (x) = -ec \overbar{\psi}(x) \gamma^\mu \psi(x)
+\end{equation*}
+
+Now, consider two points $x,y$ in spacetime with a space-like separation. In other words, we have: $(x-y)^2 < 0$. Then, we have:
+\begin{equation*}
+	\Delta(x-y) = 0
+\end{equation*}
+and hence
+\begin{equation*}
+	\left\{\psi(x), \overbar{\psi}(y)\right\} \define \psi(x)\overbar{\psi}(y) + \overbar{\psi}(y)\psi(x) = iS(x-y) = 0
+\end{equation*}
+because of the definition $S(x) \define \left(i\slashed{\partial} + \mu\right)\Delta(x)$.
+
+Therefore, we can write:
+\begin{equation*}
+	\psi(x)\overbar{\psi}(y) = -\overbar{\psi}(y)\psi(x)
+\end{equation*}
+This may seem odd because the left-hand side is a $4$-by-$4$ matrix while the right-hand side is a scalar. However, this expression simply means that the left-hand side forms a diagonal matrix, which commutes with all matrices and can be treated as though it was a scalar.
+
+Then, we can derive:
+\begin{align*}
+	\big[s^\mu(x), s^\nu(y)\big]
+	&= (ec)^2 \Big[ \left(\overbar{\psi}(x)\gamma^\mu\psi(x)\right)\left(\overbar{\psi}(y)\gamma^\nu\psi(y)\right)	\\
+	& \hspace{5em} - \left(\overbar{\psi}(y)\gamma^\nu\psi(y)\right) \left(\overbar{\psi}(x)\gamma^\mu\psi(x)\right) \Big]	\\
+	&= (ec)^2 \Big[ \overbar{\psi}(x)\gamma^\mu \left(-\overbar{\psi}(y)\psi(x)\right) \gamma^\nu\psi(y)	\\
+	& \hspace{5em} - \overbar{\psi}(y)\gamma^\nu \left(-\overbar{\psi}(x)\psi(y)\right) \gamma^\mu\psi(x) \Big]	\\
+	&= (ec)^2 \Big[ \left(-\overbar{\psi}(y)\psi(x)\right) \overbar{\psi}(x)\gamma^\mu \gamma^\nu\psi(y)	\\
+	& \hspace{5em} - \overbar{\psi}(y)\gamma^\nu \gamma^\mu\psi(x)\left(-\overbar{\psi}(x)\psi(y)\right)\Big]	\\
+	&= (ec)^2 \Big[-\overbar{\psi}(y)\left(-\overbar{\psi}(x)\psi(x)\right)\gamma^\mu\gamma^\nu\psi(y)	\\
+	& \hspace{5em} - \overbar{\psi}(y)\gamma^\nu\gamma^\mu\left(+\overbar{\psi}(x)\psi(x)\right)\psi(y)	\Big]	\\
+	&= (ec)^2 \left(\overbar{\psi}(x)\psi(x)\right) \overbar{\psi}(y)\big[\gamma^\mu, \gamma^\nu\big]\psi(y)
+\end{align*}
+\end{problem}
+
+
+
+\begin{problem}
+Recall the expansion of the real Klein-Gordon field $\phi(x)$:
+\begin{equation*}
+	\phi(x) = \phi^+(x) + \phi^-(x) = \sum_{\vb{k}} \sqrt{\frac{\hbar c^2}{2V\omega_{\vb{k}}}} \left[a(\vb{k})e^{-ikx} + a^\dagger(\vb{k})e^{ikx}\right]
+\end{equation*}
+
+Now, supposes that we impose the \emph{anti}-commutator relationships, instead of the normal commutator relationships, on the absorption and creation operators:
+\begin{gather*}
+	\left\{a(\vb{k}), a^\dagger(\vb{k}')\right\} = \delta_{\vb{k}\vb{k}'}	\\
+	\left\{a(\vb{k}), a(\vb{k}') \right\} = \left\{a^\dagger(\vb{k}), a^\dagger(\vb{k}') \right\} = 0
+\end{gather*}
+This is equivalent to imposing \emph{Fermi-Dirac statistics}, instead of Bose-Einstein statistics.
+
+The following identity will be useful in this problem.
+\begin{equation*}
+	\big[A, B\big] = AB - BA = 2AB - \big\{A, B\}
+\end{equation*}
+
+Now, consider two points $x,y$ in spacetime with a space-like separation $(x-y)$. First, we have:
+\begin{align*}
+	\big\{\phi(x), \phi(y)\big\}
+	&= \frac{\hbar c^2}{2V}\sum_{\vb{k},\vb{k}'} \frac{1}{\sqrt{\omega_{\vb{k}}\omega_{\vb{k}'}}}
+	\Big[-\big\{a(\vb{k}), a^\dagger(\vb{k}')\big\}e^{-i(kx-k'y)} - \big\{a^\dagger(\vb{k}), a(\vb{k}')\big\}e^{i(kx-k'y)}\Big]	\\
+	&= -\frac{\hbar c^2}{2V} \sum_{\vb{k},\vb{k}'} \frac{1}{\sqrt{\omega_{\vb{k}}\omega_{\vb{k}'}}} \delta_{\vb{k}\vb{k}'}\left(e^{-i(kx-k'y)} + e^{i(kx-k'y)}\right)	\\
+	&= -\frac{\hbar c^2}{V} \sum_{\vb{k}} \frac{1}{\omega_{\vb{k}}} \cos\left(k(x-y)\right)
+\end{align*}
+
+\begin{align*}
+	\big[\phi(x), \phi(y)\big]
+	&= 2\phi(x)\phi(y) - \big\{\phi(x), \phi(y)\big\}	\\
+	&= 2\phi(x)\phi(y) + \frac{\hbar c^2}{2V} \sum_{\vb{k},\vb{k}'} \frac{1}{\sqrt{\omega_{\vb{k}}\omega_{\vb{k}'}}} \delta_{\vb{k}\vb{k}'}\left(e^{-i(kx-k'y)} + e^{i(kx-k'y)}\right)		\\
+	&= 2\phi(x)\phi(y) + \frac{\hbar c^2}{V} \sum_{\vb{k}} \frac{1}{\omega_{\vb{k}}} \cos\left(k(x-y)\right)
+\end{align*}
+\end{problem}
+
+
+
+
 
 \end{document}
