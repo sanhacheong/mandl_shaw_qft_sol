@@ -1395,18 +1395,21 @@ If the mass $m$ of the Dirac field $\psi(x)$ was zero, then the equations of mot
 
 Now, consider the Lagrangian density:
 \begin{equation*}
-	\lagr_\text{L} = i\hbar c \overbar{\psi_\text{L}}(x) \gamma^\mu \partial_\mu \psi_\text{L}(x)
+	\lagr_\text{L} = i\hbar c \overbar{\psi}_\text{L}(x) \gamma^\mu \partial_\mu \psi_\text{L}(x)
 \end{equation*}
 where
 \begin{equation*}
-	\overbar{\psi_\text{L}} =\psi_\text{L}^\dagger \gamma^0 = \overbar{\psi} \left(\frac{1+\gamma_5}{2}\right)
+	\overbar{\psi}_\text{L} = \overbar{\psi} \frac{1-\gamma_5}{2}
 \end{equation*}
 
 The corresponding Euler-Lagrange equations are:
 \begin{align*}
 	\pder{}{x^\mu}\left(\pder{\lagr_\text{L}}{\psi_{\text{L},\mu}}\right) - \pder{\lagr_\text{L}}{\psi_\text{L}}
-	&= \pder{}{x^\mu} \left(i\hbar c \overbar{\psi}_\text{L}\gamma^\mu\right)	\\
-	&= i\hbar c \pder{}{x^\mu} \left(\psi^\dagger \gamma^0 \frac{1}{2}(1+\gamma_5) \gamma^\mu\right)
+	&= \pder{}{x^\mu} \left(i\hbar c \overbar{\psi}_\text{L} \gamma^\mu\right)	\\
+	&= i\hbar c \pder{}{x^\mu} \left(\psi^\dagger \gamma^0 \frac{1-\gamma_5}{2}\right)\gamma^\mu	\\
+	&= i\hbar c \pder{}{x^\mu} \left(\psi^\dagger \frac{1+\gamma_5}{2}\gamma^0\right) \gamma^\mu	\\
+	&= i\hbar c \pder{}{x^\mu} \overbar{\psi_\text{R}} \gamma^\mu	\\
+	&= 0
 \end{align*}
 and
 \begin{align*}
