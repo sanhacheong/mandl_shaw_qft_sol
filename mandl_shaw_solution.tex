@@ -1237,25 +1237,31 @@ and hence
 \end{equation*}
 because of the definition $S(x) \define \left(i\slashed{\partial} + \mu\right)\Delta(x)$.
 
-Therefore, we can write:
+Therefore, we have:
 \begin{equation*}
 	\psi(x)\overbar{\psi}(y) = -\overbar{\psi}(y)\psi(x)
 \end{equation*}
-This may seem odd because the left-hand side is a $4$-by-$4$ matrix while the right-hand side is a scalar. However, this expression simply means that the left-hand side forms a diagonal matrix, which commutes with all matrices and can be treated as though it was a scalar.
 
-Then, we can derive:
+It is also useful to note that:
+\begin{align*}
+	\gamma^\mu \overbar{\psi} &= \gamma^\mu \psi^\dagger \gamma^0	\\
+	&= \psi^\dagger \left(\big\{\gamma^\mu, \gamma^0\big\} - \gamma^0\gamma^\mu\right)	\\
+	&= 2\psi^\dagger g^{\mu 0} - \overbar{\psi} \gamma^\mu
+\end{align*}
+
+Then, we can write:
 \begin{align*}
 	\big[s^\mu(x), s^\nu(y)\big]
 	&= (ec)^2 \Big[ \left(\overbar{\psi}(x)\gamma^\mu\psi(x)\right)\left(\overbar{\psi}(y)\gamma^\nu\psi(y)\right)	\\
 	& \hspace{5em} - \left(\overbar{\psi}(y)\gamma^\nu\psi(y)\right) \left(\overbar{\psi}(x)\gamma^\mu\psi(x)\right) \Big]	\\
 	&= (ec)^2 \Big[ \overbar{\psi}(x)\gamma^\mu \left(-\overbar{\psi}(y)\psi(x)\right) \gamma^\nu\psi(y)	\\
 	& \hspace{5em} - \overbar{\psi}(y)\gamma^\nu \left(-\overbar{\psi}(x)\psi(y)\right) \gamma^\mu\psi(x) \Big]	\\
-	&= (ec)^2 \Big[ \left(-\overbar{\psi}(y)\psi(x)\right) \overbar{\psi}(x)\gamma^\mu \gamma^\nu\psi(y)	\\
-	& \hspace{5em} - \overbar{\psi}(y)\gamma^\nu \gamma^\mu\psi(x)\left(-\overbar{\psi}(x)\psi(y)\right)\Big]	\\
-	&= (ec)^2 \Big[-\overbar{\psi}(y)\left(-\overbar{\psi}(x)\psi(x)\right)\gamma^\mu\gamma^\nu\psi(y)	\\
-	& \hspace{5em} - \overbar{\psi}(y)\gamma^\nu\gamma^\mu\left(+\overbar{\psi}(x)\psi(x)\right)\psi(y)	\Big]	\\
-	&= (ec)^2 \left(\overbar{\psi}(x)\psi(x)\right) \overbar{\psi}(y)\big[\gamma^\mu, \gamma^\nu\big]\psi(y)
+	&= (ec)^2 \Big[-\overbar{\psi}(x)\left(2\psi^\dagger(y)g^{\mu 0} - \overbar{\psi}(y)\gamma^\mu\right)\psi(x)\gamma^\nu\psi(y)	\\
+	& \hspace{5em} + \overbar{\psi}(y)\left(2	\psi^\dagger(x)g^{\nu 0} - \overbar{\psi}(x)\gamma^\nu\right)\psi(y)\gamma^\mu\psi(x)	\Big]
 \end{align*}
+
+Now, note that $\gamma^\mu$
+
 \end{problem}
 
 
@@ -1321,10 +1327,10 @@ Under this transformation, the Lagrangian density
 \end{equation*}
 transforms to:
 \begin{align*}
-	\lagr' &= c {\psi^\dagger}'(x) \gamma^0 \left[i\hbar\gamma^\mu\pder{}{x^\mu} - mc\right] \psi'(x)	\\
+	\lagr' &= c {\bar{\psi}}'(x) \gamma^0 \left[i\hbar\gamma^\mu\pder{}{x^\mu} - mc\right] \psi'(x)	\\
 	&= c \psi^\dagger(x) \exp(-i\alpha\gamma_5) \gamma^0 \left[i\hbar\gamma^\mu\pder{}{x^\mu} - mc\right] \exp(i\alpha\gamma_5) \psi(x)
 \end{align*}
-Note that the first term has two powers of the Dirac $\gamma$-matrix: the $\gamma^0$ originating from the adjoint spinor $\overbar{\psi}$ and the $\gamma^\mu$ in front of the derivative. Hence, the order of the products for the first term can be exchanged such that the two exponential factors due to the chiral phase transformation cancel each other. However, the second term (i.e. the mass term) has only one $\gamma^0$, and thus gains a negative sign. i.e.,
+The first term has two powers of the Dirac $\gamma$-matrix: the $\gamma^0$ originating from the adjoint spinor $\overbar{\psi}'$ and the $\gamma^\mu$ in front of the derivative. Hence, the first term can be re-ordered such that the two exponential factors due to the chiral phase transformation cancel each other. However, the second term (i.e. the mass term) has only one $\gamma^0$, and thus gains a negative sign after such re-ordering. Hence,
 \begin{align*}
 	\lagr' &= c \overbar{\psi}(x)\left[i\hbar\gamma^\mu\pder{}{x^\mu} + mc\right]\psi(x)
 \end{align*}
@@ -1354,12 +1360,16 @@ Now, for a given massive Dirac field $\psi(x)$, consider two new fields:
 \end{equation*}
 The subscripts $_{\text{L},\text{R}}$ stand for ``left-handed" and ``right-handed" components of the Dirac field $\psi$. They are also called ``negative/positvie helicity" components, respectively.
 
-Note that $\psi_\text{L} + \psi_\text{R} = \psi$ and $\psi_\text{R} - \psi_\text{L} = \gamma_5 \psi$.
+Note that:
+\begin{align*}
+	\psi_\text{L} + \psi_\text{R} = \psi \,,\,
+	\psi_\text{R} - \psi_\text{L} = \gamma_5 \psi
+\end{align*}
 
-Applying the operator $\left(i\hbar\slashed{\partial}-mc\right)$ to these fields gives their equations of motion:
+Applying the operator $\left(i\hbar\slashed{\partial}-mc\right)$ to the left of $\psi_{\text{L},\text{R}}$ gives their equations of motion:
 \begin{align*}
 	\left(i\hbar\slashed{\partial}-mc\right)\psi_\text{L}(x)
-	&= \frac{1}{2}\left(i\hbar\gamma^\mu\pder{}{x^\mu}-mc\right)\left(1-\gamma_5\right)\psi(x)	\\
+	&= \left(i\hbar\gamma^\mu\pder{}{x^\mu}-mc\right) \frac{1}{2}\left(1-\gamma_5\right)\psi(x)	\\
 	&= \frac{1}{2} \left[\left(i\hbar\gamma^\mu\pder{}{x^\mu}-mc\right)\psi(x)
 	- \left(i\hbar\gamma^\mu\pder{}{x^\mu}-mc\right)\gamma_5\psi(x)\right]	\\
 	&= \frac{1}{2} \left[0 + \gamma_5 \left(i\hbar\gamma^\mu\pder{}{x^\mu} + mc\right)\psi(x)\right]	\\
@@ -1378,31 +1388,34 @@ Similarly, we also have:
 	&= -mc\left(\psi_\text{R}(x) - \psi_\text{L}(x)\right)
 \end{align*}
 
-If the mass of the Dirac field $\psi(x)$ was zero, then the equations of motion for $\psi_\text{L}, \psi_\text{R}$ would be decoupled:
+If the mass $m$ of the Dirac field $\psi(x)$ was zero, then the equations of motion for $\psi_\text{L}, \psi_\text{R}$ would be decoupled:
 \begin{equation*}
 	i\hbar\gamma^\mu\pder{}{x^\mu}\psi_{\text{L},\text{R}} = 0
 \end{equation*}
 
 Now, consider the Lagrangian density:
 \begin{equation*}
-	\lagr_\text{L} = i\hbar c \overbar{\psi}_\text{L}(x) \gamma^\mu \partial_\mu \psi_\text{L}(x)
+	\lagr_\text{L} = i\hbar c \overbar{\psi_\text{L}}(x) \gamma^\mu \partial_\mu \psi_\text{L}(x)
+\end{equation*}
+where
+\begin{equation*}
+	\overbar{\psi_\text{L}} =\psi_\text{L}^\dagger \gamma^0 = \overbar{\psi} \left(\frac{1+\gamma_5}{2}\right)
 \end{equation*}
 
 The corresponding Euler-Lagrange equations are:
 \begin{align*}
 	\pder{}{x^\mu}\left(\pder{\lagr_\text{L}}{\psi_{\text{L},\mu}}\right) - \pder{\lagr_\text{L}}{\psi_\text{L}}
 	&= \pder{}{x^\mu} \left(i\hbar c \overbar{\psi}_\text{L}\gamma^\mu\right)	\\
-	&= i\hbar c \pder{}{x^\mu}\left(\frac{1}{2}\left(1-\gamma_5\right)\psi^\dagger \gamma^0 \gamma^\mu\right)	\\
-	&= - i \hbar c \gamma^\mu \pder{}{x^\mu} \left(\frac{1}{2}\left(1+\gamma_5\right)\psi^\dagger\gamma^0\right)	\\
-	&= - i \hbar c \gamma^\mu \pder{}{x^\mu}\overbar{\psi}_\text{R}	\\
-	&= 0	\\
-\intertext{and}
+	&= i\hbar c \pder{}{x^\mu} \left(\psi^\dagger \gamma^0 \frac{1}{2}(1+\gamma_5) \gamma^\mu\right)
+\end{align*}
+and
+\begin{align*}
 	\pder{}{x^\mu}\left(\pder{\lagr_\text{L}}{\overbar{\psi}_{\text{L},\mu}}\right) - \pder{\lagr_\text{L}}{\overbar{\psi}_\text{L}}
-	&= - i\hbar c \gamma^\mu \partial_\mu \psi_\text{L}(x)	\\
+	&= - i\hbar c \gamma^\mu \pder{}{x^\mu} \psi_\text{L}	\\
 	&= 0
 \end{align*}
 
-Therefore, the given Lagrangian $\lagr_\text{L}$ describes the right-handed massless anti-fermions and the left-handed massless fermions only.
+Therefore, the given Lagrangian $\lagr_\text{L}$ describes the right-handed massless anti-fermions and the left-handed massless fermions only.	
 \end{problem}
 
 

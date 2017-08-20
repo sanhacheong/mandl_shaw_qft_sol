@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.8.10)  19 AUG 2017 08:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.8.10)  19 AUG 2017 17:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2242,28 +2242,28 @@ Overfull \hbox (3.8972pt too wide) in paragraph at lines 1012--1013
 f the Her-mi-tian (real) Klein-Gordon
  []
 
-[24] [25] [26] [27] [28] [29] [30]
-Overfull \hbox (21.29146pt too wide) in paragraph at lines 1288--1288
+[24] [25] [26] [27] [28] [29]
+Overfull \hbox (21.29146pt too wide) in paragraph at lines 1294--1294
 [] 
  []
 
-[31] [32] [33] 
+[30] [31] [32] [33] 
 AED: lastpage setting LastPage
 [34]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1411.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1411.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1424.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1424.
  (./mandl_shaw_solution.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1411.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1411.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1424.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1424.
 
 Package rerunfilecheck Info: File `mandl_shaw_solution.out' has not changed.
 (rerunfilecheck)             Checksum: 5999F01B7BAF004B41D68D49D9A4DA5F;1782.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1411.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1424.
  ) 
 Here is how much of TeX's memory you used:
  28825 strings out of 493029
  567919 string characters out of 6136234
- 647555 words of memory out of 5000000
+ 647556 words of memory out of 5000000
  31845 multiletter control sequences out of 15000+600000
  41710 words of font info for 50 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -2289,7 +2289,7 @@ s/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols
 texmf/fonts/type1/public/tex-gyre/qtmr.pfb></usr/share/texmf/fonts/type1/public
 /tex-gyre/qtmri.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/rsfs/rsfs
 10.pfb>
-Output written on mandl_shaw_solution.pdf (34 pages, 328842 bytes).
+Output written on mandl_shaw_solution.pdf (34 pages, 328902 bytes).
 PDF statistics:
  393 PDF objects out of 1000 (max. 8388607)
  332 compressed objects within 4 object streams
