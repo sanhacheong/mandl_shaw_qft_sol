@@ -111,8 +111,8 @@
 \DeclareMathOperator{\dalem}{\Box}
 \makeatletter
 \def\diff{\@ifnextchar[{\@with}{\@without}}
-\def\@with[#1]#2{\textrm{d}^#1#2}
-\def\@without#1{\textrm{d}#1}
+\def\@with[#1]#2{\mathrm{d}^#1#2}
+\def\@without#1{\mathrm{d}#1}
 \makeatother
 \newcommand\colcancel[2][black]{\renewcommand\CancelColor{\color{#1}}\cancel{#2}}
 \newcommand{\define}{\equiv}
@@ -1238,39 +1238,41 @@ Also, we have the general anti-commutator relationships:
 	\big\{\psi(x), \psi(y)\big\} = \big\{\overbar{\psi}(x), \overbar{\psi}(y)\big\} = 0
 \end{equation*}
 
-The following identities will be useful for this problem:
-\begin{gather*}
-\big[AB, C\big] = A\big[B, C\big] + \big[A, C\big]B	= A\big\{B,C\big\} - \big\{A, C\big\} B	\\
-\big[A, BC\big] = \big\{A, B\}C - B\big\{A, C\big\}
-\end{gather*}
+\Large{SKIPPING FOR NOW. PHYSICALLY INTUITIVE, COMPUTATIONALLY ANNOYING}
 
-Now, we can write:
-\begin{align*}
-	\big[s^\mu(x), s^\nu(y)\big] &=
-	(ec)^2 \Big[\overbar{\psi}(x)\gamma^\mu\psi(x), \overbar{\psi}(y)\gamma^\nu\psi(y)\Big]	\\
-	&= (ec)^2 \Big[\overbar{\psi}(x)\gamma^\mu\big[\psi(x), \overbar{\psi}(y)\gamma^\nu\psi(y)\big] + \big[\overbar{\psi}(x)\gamma^\mu, \overbar{\psi}(y)\gamma^\nu\psi(y)\big] \psi(x) \Big]	\\
-	&= (ec)^2 \Big[\overbar{\psi}(x)\gamma^\mu\Big( \cancelto{0}{\big\{\psi(x), \overbar{\psi}(y)\big\}}\gamma^\nu\psi(y) - \overbar{\psi}(y)\big\{\psi(x), \gamma^\nu\psi(y)\big\}\Big)	\\
-	& \hspace{5em} + \Big(\big\{\overbar{\psi}(x)\gamma^\mu, \overbar{\psi}(y)\big\}\gamma^\nu\psi(y) - \overbar{\psi}(y)\big\{\overbar{\psi}(x)\gamma^\mu, \gamma^\nu\psi(y)\big\}\Big)\psi(x)	\Big]		\\
-	&= (ec)^2 \Big[ -\overbar{\psi}(x) \gamma^\mu\overbar{\psi}(y) \Big(\gamma^\nu \cancelto{0}{\big\{\psi(x), \psi(y)\big\}} + \big[\psi(x), \gamma^\nu \big] \psi(y)\Big)		\\
-	& \hspace{5em} + \Big(\cancelto{0}{\big\{\overbar{\psi}(x), \overbar{\psi}(y)\big\}}\gamma^\mu + \overbar{\psi}(x)\big[\gamma^\mu, \overbar{\psi}(y)\big]\Big) \gamma^\nu\psi(y)\psi(x)	\\
-	& \hspace{5em} - \overbar{\psi}(y) \Big(\big\{\overbar{\psi}(x), \gamma^\nu\psi(y)\big\}\gamma^\mu + \overbar{\psi}(x)\big[\gamma^\mu, \gamma^\nu\psi(y)\big]\Big)\psi(x)		\Big]		\\
-	&= (ec)^2 \Big[ -\overbar{\psi}(x)\gamma^\mu\overbar{\psi}(y) \big[\psi(x), \gamma^\nu\big]\psi(y) + \overbar{\psi}(x) \big[\gamma^\mu, \overbar{\psi}(y)\big]\gamma^\nu\psi(y)\psi(x)	\\
-	& \hspace{5em} -\overbar{\psi}(y) \Big( \gamma^\nu \cancelto{0}{\big\{\overbar{\psi}(x), \psi(y)\big\}} + \big[\overbar{\psi}(x), \gamma^\nu\big]\psi(y)\Big)\gamma^\mu\psi(x)	\\
-	& \hspace{5em} -\overbar{\psi}(y)\overbar{\psi}(x) \big[\gamma^\mu, \gamma^\nu\psi(y)\big]\psi(x)		\Big]	\\
-	&= (ec)^2 \Big[ -\overbar{\psi}(x)\gamma^\mu\overbar{\psi}(y)\psi(x)\gamma^\nu\psi(y) + \colcancel[red]{\overbar{\psi}(x)\gamma^\mu\overbar{\psi}(y)\gamma^\nu\psi(x)\psi(y)}	\\
-	&\hspace{5em} + \colcancel[red]{\overbar{\psi}(x)\gamma^\mu\overbar{\psi}(y)\gamma^\nu\psi(y)\psi(x)} - \colcancel[orange]{\overbar{\psi}(x)\overbar{\psi}(y)\gamma^\mu\gamma^\nu\psi(y)\psi(x)} \\
-	&\hspace{5em} - \colcancel[blue]{\overbar{\psi}(y)\overbar{\psi}(x)\gamma^\nu\psi(y)\gamma^\mu\psi(x)} + \overbar{\psi}(y)\gamma^\nu\overbar{\psi}(x)\psi(y)\gamma^\mu\psi(x)	\\
-	&\hspace{5em} - \colcancel[orange]{\overbar{\psi}(y)\overbar{\psi}(x)\gamma^\mu\gamma^\nu\psi(y)\psi(x)} + \colcancel[blue]{\overbar{\psi}(y)\overbar{\psi}(x)\gamma^\nu\psi(y)\gamma^\mu\psi(x)}
-	\Big]
-\end{align*}
-
-
-Now, let $\vb{x} \neq \vb{y}$. Then, we have:
-\begin{align*}
-	\big[s^\mu(x), s^\nu(y)\big] &=
-	(ec)^2 \Big[\overbar{\psi}(x)\gamma^\mu\psi(x)\overbar{\psi}(y)\gamma^\nu\psi(y)		\\
-	&\hspace{4em} - \overbar{\psi}(y)\gamma^\nu\psi(y)\overbar{\psi}(x)\gamma^\mu\psi(x) \Big]	
-\end{align*}
+%The following identities will be useful for this problem:
+%\begin{gather*}
+%\big[AB, C\big] = A\big[B, C\big] + \big[A, C\big]B	= A\big\{B,C\big\} - \big\{A, C\big\} B	\\
+%\big[A, BC\big] = \big\{A, B\}C - B\big\{A, C\big\}
+%\end{gather*}
+%
+%Now, we can write:
+%\begin{align*}
+%	\big[s^\mu(x), s^\nu(y)\big] &=
+%	(ec)^2 \Big[\overbar{\psi}(x)\gamma^\mu\psi(x), \overbar{\psi}(y)\gamma^\nu\psi(y)\Big]	\\
+%	&= (ec)^2 \Big[\overbar{\psi}(x)\gamma^\mu\big[\psi(x), \overbar{\psi}(y)\gamma^\nu\psi(y)\big] + \big[\overbar{\psi}(x)\gamma^\mu, \overbar{\psi}(y)\gamma^\nu\psi(y)\big] \psi(x) \Big]	\\
+%	&= (ec)^2 \Big[\overbar{\psi}(x)\gamma^\mu\Big( \cancelto{0}{\big\{\psi(x), \overbar{\psi}(y)\big\}}\gamma^\nu\psi(y) - \overbar{\psi}(y)\big\{\psi(x), \gamma^\nu\psi(y)\big\}\Big)	\\
+%	& \hspace{5em} + \Big(\big\{\overbar{\psi}(x)\gamma^\mu, \overbar{\psi}(y)\big\}\gamma^\nu\psi(y) - \overbar{\psi}(y)\big\{\overbar{\psi}(x)\gamma^\mu, \gamma^\nu\psi(y)\big\}\Big)\psi(x)	\Big]		\\
+%	&= (ec)^2 \Big[ -\overbar{\psi}(x) \gamma^\mu\overbar{\psi}(y) \Big(\gamma^\nu \cancelto{0}{\big\{\psi(x), \psi(y)\big\}} + \big[\psi(x), \gamma^\nu \big] \psi(y)\Big)		\\
+%	& \hspace{5em} + \Big(\cancelto{0}{\big\{\overbar{\psi}(x), \overbar{\psi}(y)\big\}}\gamma^\mu + \overbar{\psi}(x)\big[\gamma^\mu, \overbar{\psi}(y)\big]\Big) \gamma^\nu\psi(y)\psi(x)	\\
+%	& \hspace{5em} - \overbar{\psi}(y) \Big(\big\{\overbar{\psi}(x), \gamma^\nu\psi(y)\big\}\gamma^\mu + \overbar{\psi}(x)\big[\gamma^\mu, \gamma^\nu\psi(y)\big]\Big)\psi(x)		\Big]		\\
+%	&= (ec)^2 \Big[ -\overbar{\psi}(x)\gamma^\mu\overbar{\psi}(y) \big[\psi(x), \gamma^\nu\big]\psi(y) + \overbar{\psi}(x) \big[\gamma^\mu, \overbar{\psi}(y)\big]\gamma^\nu\psi(y)\psi(x)	\\
+%	& \hspace{5em} -\overbar{\psi}(y) \Big( \gamma^\nu \cancelto{0}{\big\{\overbar{\psi}(x), \psi(y)\big\}} + \big[\overbar{\psi}(x), \gamma^\nu\big]\psi(y)\Big)\gamma^\mu\psi(x)	\\
+%	& \hspace{5em} -\overbar{\psi}(y)\overbar{\psi}(x) \big[\gamma^\mu, \gamma^\nu\psi(y)\big]\psi(x)		\Big]	\\
+%	&= (ec)^2 \Big[ -\overbar{\psi}(x)\gamma^\mu\overbar{\psi}(y)\psi(x)\gamma^\nu\psi(y) + \colcancel[red]{\overbar{\psi}(x)\gamma^\mu\overbar{\psi}(y)\gamma^\nu\psi(x)\psi(y)}	\\
+%	&\hspace{5em} + \colcancel[red]{\overbar{\psi}(x)\gamma^\mu\overbar{\psi}(y)\gamma^\nu\psi(y)\psi(x)} - \colcancel[orange]{\overbar{\psi}(x)\overbar{\psi}(y)\gamma^\mu\gamma^\nu\psi(y)\psi(x)} \\
+%	&\hspace{5em} - \colcancel[blue]{\overbar{\psi}(y)\overbar{\psi}(x)\gamma^\nu\psi(y)\gamma^\mu\psi(x)} + \overbar{\psi}(y)\gamma^\nu\overbar{\psi}(x)\psi(y)\gamma^\mu\psi(x)	\\
+%	&\hspace{5em} - \colcancel[orange]{\overbar{\psi}(y)\overbar{\psi}(x)\gamma^\mu\gamma^\nu\psi(y)\psi(x)} + \colcancel[blue]{\overbar{\psi}(y)\overbar{\psi}(x)\gamma^\nu\psi(y)\gamma^\mu\psi(x)}
+%	\Big]
+%\end{align*}
+%
+%
+%Now, let $\vb{x} \neq \vb{y}$. Then, we have:
+%\begin{align*}
+%	\big[s^\mu(x), s^\nu(y)\big] &=
+%	(ec)^2 \Big[\overbar{\psi}(x)\gamma^\mu\psi(x)\overbar{\psi}(y)\gamma^\nu\psi(y)		\\
+%	&\hspace{4em} - \overbar{\psi}(y)\gamma^\nu\psi(y)\overbar{\psi}(x)\gamma^\mu\psi(x) \Big]	
+%\end{align*}
 \end{problem}
 
 
@@ -1318,7 +1320,7 @@ Therefore, having imposed the anti-commutator relationships on $a(\vb{k}), a^\da
 This will prevent the commutator of any bilinear physical observable of $\phi$ at $x,y$ to be zero, which is a violation of \emph{microcausality}. Thus, we observe that the absorption and creation operators of the Klein-Gordon field must be quantized using the commutator relationships (i.e. Bose-Einstein statistics).
 \end{problem}
 
-\pagebreak
+
 
 \begin{problem}
 For a Dirac field $\psi$, we define the chiral phase transformations as:
@@ -1430,6 +1432,9 @@ and
 Therefore, the given Lagrangian $\lagr_\text{L}$ describes the right-handed massless anti-fermions and the left-handed massless fermions only.	
 \end{problem}
 
+
+
+\section{Photons: Covariant Theory}
 
 
 
